@@ -114,6 +114,12 @@ P1-EV-006 — Full `pnpm verify` passed with zero type/lint/format diagnostics, 
 
 Exact protected PR/main/container checks and final checkpoint remain future receipts. Managed origins/ledger migration, actual OAuth/operator UAT and backup/restore remain pending; no Phase 1 live promotion occurred.
 
+## CI correction and physical restart evidence — 2026-11-24
+
+P1-EV-007 — Source `46c46e62ef38b59dc6e47f133a45c6c91b8b1ffb` opened [PR #12](https://github.com/mltmacster/michaels-concierge/pull/12). [CI 45484358131](https://github.com/mltmacster/michaels-concierge/actions/runs/45484358131) passed the isolated MySQL8 integration job (20 cases) but failed five browser assertions: a generic status locator matched both the correct identity status and background refresh status after return navigation. Corrected only the ambiguous selectors to identify the exact identity-status text; assertions, retries, tests and production behavior were not weakened. This failed run remains history; final corrective-commit CI must pass separately.
+
+P1-EV-008 — A separate finite loopback fixture probe passed actual HTTP process restart: persisted identity authenticated after a process stop/restart; successful logout remained revoked after another stop/restart and the replayed cookie returned null identity/401 operator access. It used only the guarded disposable DB, generated isolated key and fixture; the fixture was deleted. This is physical process durability evidence, not real OAuth/HTTPS browser-cookie/managed replica UAT. The helper initially had a CJS/top-level-await module error; explicit ESM extension corrected the test helper, not application code. Cold strict `tsc --noEmit --incremental false` passed. Managed status had stale watcher diagnostics for removed SDK methods; the cold check and actual source supersede that stale cache, not a diagnostic waiver. Public development health/anonymous identity probes succeeded; managed migration/origin approval/live account acceptance remain pending.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                                  |

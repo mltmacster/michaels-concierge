@@ -269,7 +269,9 @@ for (const viewport of [mobile, desktop]) {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       "Your identity. A clear boundary."
     );
-    await expect(page.getByRole("status")).toHaveText("Not signed in");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Not signed in" })
+    ).toHaveText("Not signed in");
     await expect(
       page.getByRole("button", { name: "Sign in", exact: true })
     ).toBeEnabled();
@@ -334,7 +336,9 @@ test("identity waits for its DTO without assuming access or starting sign-in", a
   } finally {
     pending.resolve(dto(null));
   }
-  await expect(page.getByRole("status")).toHaveText("Not signed in");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Not signed in" })
+  ).toHaveText("Not signed in");
   await expect(page).toHaveURL(/\/identity$/);
   await audit.assertSafe();
 });
@@ -345,7 +349,9 @@ test("customer DTO exposes only its identity and updates on explicit refresh", a
   let principal = customer;
   const audit = await installDtoFixtures(page, { me: () => dto(principal) });
   await page.goto("/identity");
-  await expect(page.getByRole("status")).toHaveText("Signed in · customer");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Signed in · customer" })
+  ).toHaveText("Signed in · customer");
   await expect(
     page.getByRole("heading", { name: customer.name! })
   ).toBeVisible();
@@ -394,7 +400,9 @@ for (const viewport of [mobile, desktop]) {
       access: () => pending.result,
     });
     await page.goto("/identity");
-    await expect(page.getByRole("status")).toHaveText("Signed in · operator");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Signed in · operator" })
+    ).toHaveText("Signed in · operator");
     await expect(
       page.getByText("operator:access", { exact: true })
     ).toBeVisible();
@@ -449,7 +457,9 @@ for (const viewport of [mobile, desktop]) {
     ).toHaveLength(2);
     await page.getByRole("link", { name: "Back to Identity" }).click();
     await expect(page).toHaveURL(/\/identity$/);
-    await expect(page.getByRole("status")).toHaveText("Signed in · operator");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Signed in · operator" })
+    ).toHaveText("Signed in · operator");
     await audit.assertSafe();
   });
 }
@@ -477,7 +487,9 @@ test("direct anonymous operator navigation obeys a mixed-batch unauthorized DTO 
   expect(audit.calls.every(call => call.batched)).toBe(true);
   await capture(page, testInfo, "operator-unauthorized-375");
   await page.getByRole("link", { name: "Back to Identity" }).click();
-  await expect(page.getByRole("status")).toHaveText("Not signed in");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Not signed in" })
+  ).toHaveText("Not signed in");
   await expect(
     page.getByRole("button", { name: "Sign in", exact: true })
   ).toBeEnabled();
@@ -502,7 +514,9 @@ test("direct customer navigation makes an access request and obeys forbidden", a
   ]);
   await capture(page, testInfo, "operator-customer-forbidden-375");
   await page.getByRole("link", { name: "Back to Identity" }).click();
-  await expect(page.getByRole("status")).toHaveText("Signed in · customer");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Signed in · customer" })
+  ).toHaveText("Signed in · customer");
   await audit.assertSafe();
 });
 
@@ -516,7 +530,9 @@ test("a client-forged operator role cannot replace a denied access DTO", async (
     access: () => denied("FORBIDDEN"),
   });
   await page.goto("/identity");
-  await expect(page.getByRole("status")).toHaveText("Signed in · operator");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Signed in · operator" })
+  ).toHaveText("Signed in · operator");
   await page.getByRole("link", { name: "Verify operator access" }).click();
   await expect(page.getByRole("alert")).toContainText("Operator access denied");
   await expect(
@@ -585,7 +601,9 @@ for (const failure of identityFailures) {
     await capture(page, testInfo, `identity-${failure.code.toLowerCase()}-375`);
     response = dto(null);
     await page.getByRole("button", { name: "Refresh identity" }).click();
-    await expect(page.getByRole("status")).toHaveText("Not signed in");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Not signed in" })
+    ).toHaveText("Not signed in");
     await expect(
       page.getByRole("button", { name: "Sign in", exact: true })
     ).toBeEnabled();
@@ -672,7 +690,9 @@ for (const code of Object.keys(errors) as ErrorCode[]) {
       },
     });
     await page.goto("/identity");
-    await expect(page.getByRole("status")).toHaveText("Signed in · customer");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Signed in · customer" })
+    ).toHaveText("Signed in · customer");
     try {
       await page.getByRole("button", { name: "Sign out", exact: true }).click();
       await expect(
@@ -696,7 +716,9 @@ for (const code of Object.keys(errors) as ErrorCode[]) {
         : "Your session may still be active",
       { ignoreCase: true }
     );
-    await expect(page.getByRole("status")).toHaveText("Signed in · customer");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Signed in · customer" })
+    ).toHaveText("Signed in · customer");
     await expect(
       page.getByRole("heading", { name: customer.name! })
     ).toBeVisible();
@@ -778,7 +800,9 @@ test("confirmed operator logout discards verified access and identity when retur
   ).toHaveCount(0);
   await capture(page, testInfo, "operator-confirmed-logout-375");
   await page.getByRole("link", { name: "Back to Identity" }).click();
-  await expect(page.getByRole("status")).toHaveText("Not signed in");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Not signed in" })
+  ).toHaveText("Not signed in");
   await expect(
     page.getByRole("link", { name: "Verify operator access" })
   ).toHaveCount(0);
