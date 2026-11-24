@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-REBUILD-README
-version: 1.0.0
+version: 1.2.0
 status: phase0-foundation
 owner: Michael Thomas
 maintainer: Manus AI
@@ -49,9 +49,17 @@ The smoke and browser harnesses use generated test session secrets, reserved non
 
 ## Development with approved service configuration
 
-Copy `.env.example` to `.env` locally, then configure credentials through the approved secret store/environment. Never commit the filled file. A session signing secret must have at least 32 characters; use a cryptographically generated value, not an example string. Managed projects provide these settings through their configuration UI.
+Configure credentials through the approved secret store/environment. `.env.example` is a blank reference, not a ready-to-run configuration; never commit a filled secret file. A session signing secret must have at least 32 characters; use a cryptographically generated value, not an example string.
 
-Required runtime settings: `DATABASE_URL` using `mysql://`, `JWT_SECRET`, `VITE_APP_ID`, `OAUTH_SERVER_URL`, and `VITE_OAUTH_PORTAL_URL`. Production OAuth URLs must use HTTPS. `PORT` defaults to 3000. Optional platform AI/storage keys are not required or used by the Phase 0 customer-facing paths.
+Required runtime settings: `DATABASE_URL` using `mysql://`, a session signing key, `VITE_APP_ID`, `OAUTH_SERVER_URL`, and `VITE_OAUTH_PORTAL_URL`. A standalone environment may supply `JWT_SECRET`. Managed hosting must supply the application-owned `MGECS_SESSION_SECRET` through the project's secure configuration when the built-in key does not meet this policy; do not overwrite managed system variables. An explicitly supplied override always takes precedence and is rejected if invalid, even when the legacy key is valid. The existing OAuth/session SDK uses this same resolved key; no second authentication system is introduced. Production OAuth URLs must use HTTPS. `PORT` defaults to 3000. Optional platform AI/storage keys are not required or used by the Phase 0 customer-facing paths.
+
+The initial managed preview correctly refused startup because its built-in signing key did not meet the new minimum. A live preview must not be described as available until the application-owned secret is securely configured and the following opt-in test passes. Ordinary CI skips only this actual-environment gate; its portable configuration tests still run without credentials. Never put the signing key in a `VITE_` variable, command line, screenshot, issue, or release artifact.
+
+```bash
+MGECS_VERIFY_CONFIG=true pnpm exec vitest run server/config.test.ts
+```
+
+On 2026-11-24, the owner securely configured the application-only signing key. The production-mode actual-configuration test passed, including existing-SDK signing, wrong-key rejection and a lightweight HTTP probe. The managed foundation preview restarted and returned HTTP 200 for liveness and real read-only database readiness. This resolves the initial configuration blocker; it does not prove customer login, persistence, migrations or production launch. See the latest dated [evidence](docs/evidence/Evidence_Ledger.md).
 
 ```bash
 pnpm dev
@@ -116,7 +124,9 @@ Follow [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Do not
 | Date       | Version | Change                                                                                                                              |
 | ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-11-24 | 1.0.0   | Documented the approved Phase 0 rebuild, runnable foundation, portable checks, deployment boundaries, and non-enabled capabilities. |
+| 2026-11-24 | 1.1.0   | Documented application-owned signing-key precedence and the explicit live configuration acceptance gate.                            |
+| 2026-11-24 | 1.2.0   | Recorded actual app-key/signature/HTTP validation and restored development preview with read-only readiness.                        |
 
 ---
 
-**Document footer — MGECS-REBUILD-README v1.0.0 | Status: phase0-foundation | Next review: Phase 0 gate evidence and Phase 1 contract work.**
+**Document footer — MGECS-REBUILD-README v1.2.0 | Status: phase0-foundation | Next review: Phase 0 gate evidence and Phase 1 contract work.**

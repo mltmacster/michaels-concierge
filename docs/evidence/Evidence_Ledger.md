@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-EVIDENCE
-version: 1.0.0
-status: active
+version: 1.2.0
+status: phase0-release-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -25,7 +25,7 @@ P0-EV-004: Gitleaks 8.30.1 official archives were checksum-verified. The first d
 
 Append exact commands, source commit, timestamp, environment, outcome, artifact/CI link and limitations. Keep failed runs and link their corrective evidence. Portable isolated fixtures are tests, not product data. Local build/API/browser smoke does not prove database persistence, customer authentication, provider discovery, AI quality, real-time delivery, payments or production acceptance.
 
-## Pending gate records
+## Pending gate records — historical record, superseded below
 
 Final format/lint/type/doc/test/build/security/browser/clean-clone results, public CI and its intentional failure canary, protected main and baseline tag, and artifact delivery must be appended before Phase 0 is called complete.
 
@@ -41,14 +41,57 @@ P0-EV-008: The deliberate test-only canary failed in public CI at the expected a
 
 P0-EV-009: After dependency updates and Drizzle 0.45.4, the production audit reported zero high/critical/moderate findings and one low KaTeX advisory (GHSA-238p-pmpm-9mq7). The low-severity item remains visible for Phase 1 review; the unused rich-content component is not exposed on foundation pages. Node container base was pinned to a verified multi-platform registry digest. No security-audit completeness claim is made.
 
-Final corrected-commit CI/container/artifact evidence remains pending and must be appended after completion.
+Historical pending statement, superseded by P0-EV-010 and P0-EV-011 only for the verified PR/main revisions: Final corrected-commit CI/container/artifact evidence remains pending and must be appended after completion.
+
+## Release evidence update — 2026-11-24, v1.1.0
+
+**Current status: foundation-built-runtime-blocked / phase0-release-pending.** The following records use the verified release facts supplied by the release operator on 2026-11-24. They do not assert that the pending override revision or final release gates have run. Only the legacy hash recheck has a supplied exact observation time; no other precise completion time is invented.
+
+P0-EV-010 — **Corrected PR CI: SUCCESS.** Public repository: https://github.com/mltmacster/michaels-concierge . Corrected [PR #1](https://github.com/mltmacster/michaels-concierge/pull/1) CI run [45455075575](https://github.com/mltmacster/michaels-concierge/actions/runs/45455075575) succeeded after the duplicate pnpm version fix and removal of the intended failing canary. P0-EV-007/008 remain failed-run history, not erased or reclassified as passes. Protected PR #1 merged to main at `c198d139384e135873ab3732dd7c13ed1143e12c`.
+
+P0-EV-011 — **Exact-main CI: SUCCESS; tag delivery skipped as designed.** [Run 45455387123](https://github.com/mltmacster/michaels-concierge/actions/runs/45455387123) verified exact main commit `c198d139384e135873ab3732dd7c13ed1143e12c`, including Docker build, 22 unit/HTTP tests, 3 browser checks and artifact upload. The foundation delivery job correctly skipped on main, because only `v*` tags publish a prerelease. Artifact upload is build evidence, not managed runtime/promotion or customer acceptance. The final tag/prerelease pipeline remains pending.
+
+P0-EV-012 — **Source preservation and scans: PASS within recorded scope.** Source and full-history scanner checks passed; the earlier zero-commit result in P0-EV-005 remains explicitly insufficient. All 18 legacy application-source hashes were rechecked unchanged at **13:06 EST on 2026-11-24**. No legacy application migration, schema mutation or seed mutation was performed. The independent credential-free locked-install/verify/browser/audit result remains scoped to baseline `ab232288ac276594b6b245be26b2e2dd16affa0e`, not the later pending docs/config revision.
+
+P0-EV-013 — **Repository controls and dependency follow-up.** Main protection enforces administrators, strict/up-to-date `quality`, pull requests and resolved conversations; force pushes and deletions are disabled. Private vulnerability reporting is enabled. Drizzle was upgraded to 0.45.4 to patch `GHSA-gpj5-g38j-94v9`. Production dependency audit: **0 critical, 0 high, 0 moderate, 1 low**. Remaining low advisory: KaTeX `GHSA-238p-pmpm-9mq7`; retain for Phase 1 review. This is not a claim of complete application security.
+
+P0-EV-014 — **Public backlog created, not completed.** Actual public issues #2–#9 were created in the approved repository. Titles below map in creation order from the release operator's existing `create_backlog.py`; issue existence does not establish implementation or acceptance.
+
+| Issue                                                           | Actual public title                                                           |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [#2](https://github.com/mltmacster/michaels-concierge/issues/2) | Phase 1: secure one customer/operator identity and authorization contract     |
+| [#3](https://github.com/mltmacster/michaels-concierge/issues/3) | Phase 1: schema, explicit migrations and guarded disposable integration tests |
+| [#4](https://github.com/mltmacster/michaels-concierge/issues/4) | Phase 2: client to administrator to client request vertical slice             |
+| [#5](https://github.com/mltmacster/michaels-concierge/issues/5) | Phase 3: durable events, measured delivery and operating controls             |
+| [#6](https://github.com/mltmacster/michaels-concierge/issues/6) | Phase 4: approved provider-backed dining/local discovery                      |
+| [#7](https://github.com/mltmacster/michaels-concierge/issues/7) | Phase 5: grounded AI assistance and evaluation                                |
+| [#8](https://github.com/mltmacster/michaels-concierge/issues/8) | Phase 6: Stripe payment and reconciliation boundary                           |
+| [#9](https://github.com/mltmacster/michaels-concierge/issues/9) | Commercial launch: customer/operator acceptance and viable service operations |
+
+P0-EV-015 — **Managed runtime: BLOCKED; override tests: PENDING.** The managed `JWT_SECRET` is too short for the approved minimum of 32 characters. The server correctly refuses to listen, so the managed preview is **not live**. The release operator added application-owned `MGECS_SESSION_SECRET` resolution to the same existing auth SDK/session path, not a second authentication system. The strict minimum is preserved and no managed system variable was mutated. New override/config tests are pending; neither the earlier 22-test result nor exact-main run 45455387123 validates this later revision. The authorized owner must securely provide the fresh application key through managed configuration; no secret value belongs in this ledger.
+
+P0-EV-016 — **Outstanding exit gates and exact next action.** Securely configure a new cryptographically random `MGECS_SESSION_SECRET` of at least 32 characters without changing managed `JWT_SECRET`. In the actual configured environment run `NODE_ENV=production MGECS_VERIFY_CONFIG=true pnpm exec vitest run server/config.test.ts`; require the actual-config test to execute and pass, not skip, and verify override regressions plus full portable checks. Restart the managed server; record `/api/health` and `/api/ready`, whose database probe is read-only `SELECT 1`. No schema/seed/migration writes are authorized. Then verify the protected final docs/config PR's exact-commit CI, final `v*` tag/prerelease pipeline and artifact linkage, and exactly **one final managed checkpoint** after actual validation. Every gate in this record is pending; fixture-only tests, screenshots or earlier main build success do not substitute for it.
+
+P0-EV-017 — **Rollback and Phase 1 boundaries.** Source rollback: main `c198d139384e135873ab3732dd7c13ed1143e12c` (`c198d13`), which remains blocked under the known short managed key. Initial scaffold checkpoint `348e85b8` is a recovery reference, not a customer release. Final checkpoint is pending. No legacy migration or schema/seed mutation occurred; source rollback is not a database restore. After reviewed Phase 0 exit evidence, Phase 1 must establish reviewed identity/data/API contracts, session audience/expiration/revocation, CSRF/origin, trusted proxy/storage-failure behavior, RBAC/ownership denial, explicit migrations, backup/restore rehearsal and guarded disposable-database integration tests before customer request UI.
+
+No record above establishes Phase 0 completion, customer authentication/persistence, requests, providers, AI assistance, payments, production acceptance or revenue. The first service scope remains human-operated dining/local experiences. Automatic revenue, service-hours and pricing promises are prohibited; later customer/operator and commercial gates remain unfulfilled.
+
+## Runtime gate resolution — 2026-11-24, v1.2.0
+
+P0-EV-018 — **Application-owned key/configuration: PASS.** The owner generated a fresh cryptographically random app-only signing key and supplied `MGECS_SESSION_SECRET` through secure managed configuration. No value is included in source, logs or this record; managed `JWT_SECRET` was unchanged. Production-mode opt-in Vitest command `NODE_ENV=production MGECS_VERIFY_CONFIG=true pnpm exec vitest run server/config.test.ts` passed all 17 cases at 18:28 UTC. Actual SDK signature verification and wrong-key rejection plus a lightweight HTTP health request passed. This short-lived isolated proof did not create/authenticate a customer or write to a database. Earlier fixture-only test results did not clear this gate.
+
+P0-EV-019 — **Managed preview liveness/readiness: PASS.** After the supported restart at 18:27 UTC, `GET /api/health` returned 200 with `status: ok`, `phase: foundation`; `GET /api/ready` returned 200 with `status: ready`. The live readiness implementation uses read-only `SELECT 1`. The managed development preview is live; it is not a customer production launch. No seed/migration/schema/customer writes were performed. Desktop homepage and mobile status captures were reviewed in an isolated browser without personal login.
+
+P0-EV-020 — **Portable override regressions: PASS before final release.** `pnpm test` passed 26 portable cases; the one actual-environment acceptance case intentionally skipped without `MGECS_VERIFY_CONFIG=true`. The separate opt-in run executed that case successfully. `pnpm lint`, `pnpm check`, build and isolated production smoke passed; 3 browser tests passed. Final full verification and exact-commit final PR/main/tag evidence are still required before delivery. P0-EV-015/016 remain historical blocked/pending records, superseded only by these observed outcomes.
 
 ## Change log
 
-| Date       | Version | Change                                   |
-| ---------- | ------- | ---------------------------------------- |
-| 2026-11-24 | 1.0.0   | Established the approved Phase 0 record. |
+| Date       | Version | Change                                                                                                                                                  |
+| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-24 | 1.0.0   | Established the approved Phase 0 record.                                                                                                                |
+| 2026-11-24 | 1.1.0   | Preserved baseline and failures; appended exact PR/main CI, preservation/security/backlog evidence, runtime blocker and pending release/rollback gates. |
+| 2026-11-24 | 1.2.0   | Appended actual managed signing-key/HTTP and read-only readiness results and override regressions; preserved previous blocked records.                  |
 
 ---
 
-**Document footer — MGECS-REBUILD-EVIDENCE v1.0.0 | Status: active | Next review: phase-exit evidence or material change.**
+**Document footer — MGECS-REBUILD-EVIDENCE v1.2.0 | Status: phase0-release-pending | Next review: actual config/runtime results, final PR/tag pipeline and one final managed checkpoint.**
