@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { randomBytes } from "node:crypto";
-import { loadRuntimeConfig } from "./config";
+import { getSessionSigningSecret, loadRuntimeConfig } from "./config";
 
 function fixture(): NodeJS.ProcessEnv {
   return {
@@ -38,6 +38,55 @@ describe("runtime configuration", () => {
       loadRuntimeConfig({ ...fixture(), JWT_SECRET: "short" })
     ).toThrow("JWT_SECRET");
   });
+  it("uses a strong application key without changing the managed key", () => {
+    const MGECS_SESSION_SECRET = randomBytes(32).toString("hex");
+    const env = { ...fixture(), JWT_SECRET: "short", MGECS_SESSION_SECRET };
+    expect(loadRuntimeConfig(env).JWT_SECRET).toBe(MGECS_SESSION_SECRET);
+    expect(getSessionSigningSecret(env)).toBe(MGECS_SESSION_SECRET);
+    expect(env.JWT_SECRET).toBe("short");
+  });
+  it.each(["", "short"])("rejects an invalid explicit override %j", value => {
+    expect(() =>
+      loadRuntimeConfig({ ...fixture(), MGECS_SESSION_SECRET: value })
+    ).toThrow("MGECS_SESSION_SECRET");
+  });
+  it("shares the legacy key resolution when an override is absent", () => {
+    const env = fixture();
+    expect(getSessionSigningSecret(env)).toBe(
+      loadRuntimeConfig(env).JWT_SECRET
+    );
+  });
+  it.skipIf(process.env.MGECS_VERIFY_CONFIG !== "true")(
+    "validates the configured managed environment without printing credentials",
+    async () => {
+      const config = loadRuntimeConfig(process.env);
+      expect(config.JWT_SECRET.length).toBeGreaterThanOrEqual(32);
+      const { sdk } = await import("./_core/sdk");
+      const { jwtVerify } = await import("jose");
+      const { createApp } = await import("./app");
+      const { default: request } = await import("supertest");
+      // A short-lived isolated proof, never an account or stored fixture.
+      const token = await sdk.createSessionToken("configuration-probe", {
+        name: "Configuration probe",
+        expiresInMs: 60_000,
+      });
+      const key = new TextEncoder().encode(config.JWT_SECRET);
+      await expect(
+        jwtVerify(token, key, { algorithms: ["HS256"] })
+      ).resolves.toBeDefined();
+      await expect(jwtVerify(token, randomBytes(32))).rejects.toThrow();
+      await expect(sdk.verifySession(token)).resolves.toMatchObject({
+        openId: "configuration-probe",
+        appId: config.VITE_APP_ID,
+      });
+      // Health is intentionally not authenticated; no identity/DB API is called.
+      const response = await request(createApp())
+        .get("/api/health")
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(200);
+      expect(response.body.phase).toBe("foundation");
+    }
+  );
   it("rejects non-MySQL database URLs", () => {
     expect(() =>
       loadRuntimeConfig({

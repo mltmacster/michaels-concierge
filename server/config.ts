@@ -23,11 +23,28 @@ const schema = z.object({
 
 export type RuntimeConfig = z.infer<typeof schema>;
 
+/** One key for the existing session system; never overwrite managed variables. */
+export function getSessionSigningSecret(env: NodeJS.ProcessEnv) {
+  return env.MGECS_SESSION_SECRET ?? env.JWT_SECRET;
+}
+
 /** Validate before listening. Errors contain field names only, never values. */
 export function loadRuntimeConfig(env: NodeJS.ProcessEnv): RuntimeConfig {
-  const result = schema.safeParse(env);
+  const result = schema.safeParse({
+    ...env,
+    JWT_SECRET: getSessionSigningSecret(env),
+  });
   if (!result.success) {
-    const names = [...new Set(result.error.issues.map(issue => issue.path[0]))];
+    const names = [
+      ...new Set(
+        result.error.issues.map(issue =>
+          issue.path[0] === "JWT_SECRET" &&
+          env.MGECS_SESSION_SECRET !== undefined
+            ? "MGECS_SESSION_SECRET"
+            : issue.path[0]
+        )
+      ),
+    ];
     throw new Error(`Invalid runtime configuration: ${names.join(", ")}`);
   }
   const config = result.data;
