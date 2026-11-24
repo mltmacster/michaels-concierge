@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-PHASE0
-version: 1.2.0
-status: phase0-release-pending
+version: 1.3.0
+status: phase0-foundation-verified
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -74,14 +74,23 @@ The v1.1.0 runtime/config blocker is now resolved. The owner generated and secur
 
 The foundation is ready for final protected PR/main verification and the explicitly labelled `v0.0.1-phase0` prerelease pipeline. These final delivery and single managed-checkpoint outcomes are not yet recorded as passed. Preserve all earlier failed and blocked records; use the later dated ledger entries to determine current state. Phase 1 remains identity/data/security and guarded disposable integration testing before requests.
 
+## Verified foundation delivery — 2026-11-24, v1.3.0
+
+Protected [PR #10](https://github.com/mltmacster/michaels-concierge/pull/10) passed [CI 45460764458](https://github.com/mltmacster/michaels-concierge/actions/runs/45460764458) and merged as `540ab1f733a2a8d562e7fe6febd34b7c5195d49a`. Exact [main CI 45461104591](https://github.com/mltmacster/michaels-concierge/actions/runs/45461104591) passed, including container build and verified artifact upload. [Tag CI 45461542649](https://github.com/mltmacster/michaels-concierge/actions/runs/45461542649) passed both quality and same-run prerelease delivery. [Foundation prerelease v0.0.1-phase0](https://github.com/mltmacster/michaels-concierge/releases/tag/v0.0.1-phase0) is explicitly marked prerelease, not customer production.
+
+The downloaded archive passed SHA-256 verification and its embedded source identity matches the tagged commit. Independent cleared-environment validation passed against the identical source tree. The earlier source/protection/canary/security/actual signing-key/read-only readiness gates remain valid within their recorded limits. The receipt update is docs-only; its protected PR/main checks and one final managed checkpoint must be completed before handing this foundation to the owner. Checkpoint identity belongs to the platform receipt, not a fabricated pre-snapshot value.
+
+Phase 0 establishes a reproducible, observable engineering foundation and artifact delivery. It does not validate customer login/persistence, migrations/restore, request fulfilment, real-time delivery, provider results, AI quality, payments or profitability. Phase 1 starts with identity/security and data/contracts; all later commercial gates remain open.
+
 ## Change log
 
-| Date       | Version | Change                                                                                                                             |
-| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-24 | 1.0.0   | Recorded approved rebuild scope, ordered Phase 0 work, safety gates, and limitations before implementation.                        |
-| 2026-11-24 | 1.1.0   | Preserved initial plan; appended verified CI/source/control gates, runtime blocker, pending release sequence and bounded rollback. |
-| 2026-11-24 | 1.2.0   | Recorded actual signing-key, runtime and read-only readiness verification while retaining final release gates.                     |
+| Date       | Version | Change                                                                                                                                            |
+| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-24 | 1.0.0   | Recorded approved rebuild scope, ordered Phase 0 work, safety gates, and limitations before implementation.                                       |
+| 2026-11-24 | 1.1.0   | Preserved initial plan; appended verified CI/source/control gates, runtime blocker, pending release sequence and bounded rollback.                |
+| 2026-11-24 | 1.2.0   | Recorded actual signing-key, runtime and read-only readiness verification while retaining final release gates.                                    |
+| 2026-11-24 | 1.3.0   | Recorded passing tagged foundation delivery and immutable-source/archive provenance; retained final handoff/checkpoint and commercial boundaries. |
 
 ---
 
-**Document footer — MGECS-PHASE0 v1.2.0 | Status: phase0-release-pending | Next review: actual config/runtime validation, final PR/tag pipeline and managed checkpoint.**
+**Document footer — MGECS-PHASE0 v1.3.0 | Status: phase0-foundation-verified | Next review: actual config/runtime validation, final PR/tag pipeline and managed checkpoint.**

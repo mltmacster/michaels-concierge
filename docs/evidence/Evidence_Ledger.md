@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-EVIDENCE
-version: 1.2.0
-status: phase0-release-pending
+version: 1.3.0
+status: phase0-foundation-verified
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -84,6 +84,18 @@ P0-EV-019 — **Managed preview liveness/readiness: PASS.** After the supported 
 
 P0-EV-020 — **Portable override regressions: PASS before final release.** `pnpm test` passed 26 portable cases; the one actual-environment acceptance case intentionally skipped without `MGECS_VERIFY_CONFIG=true`. The separate opt-in run executed that case successfully. `pnpm lint`, `pnpm check`, build and isolated production smoke passed; 3 browser tests passed. Final full verification and exact-commit final PR/main/tag evidence are still required before delivery. P0-EV-015/016 remain historical blocked/pending records, superseded only by these observed outcomes.
 
+## Verified foundation delivery — 2026-11-24, v1.3.0
+
+P0-EV-021 — **Final configuration/docs PR and main: PASS.** Protected [PR #10](https://github.com/mltmacster/michaels-concierge/pull/10) passed [CI 45460764458](https://github.com/mltmacster/michaels-concierge/actions/runs/45460764458) and merged as `540ab1f733a2a8d562e7fe6febd34b7c5195d49a`. Exact [main CI 45461104591](https://github.com/mltmacster/michaels-concierge/actions/runs/45461104591) passed, including container build and verified artifact upload. [Tag CI 45461542649](https://github.com/mltmacster/michaels-concierge/actions/runs/45461542649) passed both quality and same-run prerelease delivery. [Foundation prerelease v0.0.1-phase0](https://github.com/mltmacster/michaels-concierge/releases/tag/v0.0.1-phase0) is explicitly marked prerelease, not customer production.
+
+P0-EV-022 — **Final clean-clone validation: PASS.** Independent public-clone source `f3d2d0780b9be904bedf6bcf319bd3f68b805b80` passed `--frozen-lockfile` installation, full verify, browser and production audit in an environment cleared of application credentials. Its Git tree equals the tagged merge `540ab1f733a2a8d562e7fe6febd34b7c5195d49a`. Portable CI passed 26 tests with exactly one opt-in actual-environment case skipped; the separately configured managed production-mode run executed all 17 configuration cases. These are not customer login or persistence acceptance tests.
+
+P0-EV-023 — **Tagged artifact CD/provenance: PASS.** Tag `v0.0.1-phase0` resolves to `540ab1f733a2a8d562e7fe6febd34b7c5195d49a`. Tag run `45461542649` passed quality and the same-run foundation delivery job. The released `foundation-build.tar.gz` and checksum downloaded successfully; `sha256sum --check foundation-build.sha256` passed. Embedded `VERIFIED_SOURCE.txt` equals `540ab1f733a2a8d562e7fe6febd34b7c5195d49a`. Archive SHA-256: `fa003e9e523946322ceb67b0dd0ef14837cfea77e920c1d5e9219847b38f58b5`. Linked docs are included; runtime secret files are absent. The release is explicitly a prerelease and is not a customer service launch.
+
+P0-EV-024 — **Packaging-tool failure corrected without waiving verification.** An auxiliary local Python packaging check initially could not import PyYAML. Verification was rerun with the repository's already installed `yaml` parser and passed archive checksum/source identity/complete local docs/no runtime secret file. No application rule or CI test was disabled. Public CI then assembled and delivered the verified archive successfully.
+
+P0-EV-025 — **Final documentation/checkpoint boundary.** These final receipts are appended after the immutable tag artifact, in a docs-only follow-up. Their exact protected PR/main checks and the single final managed checkpoint remain required before delivery. The final platform checkpoint receipt and any later exact-main CI pointer are delivered separately. Do not invent a self-referential checkpoint/source identifier or reinterpret artifact CD as live customer deployment.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                                  |
@@ -91,7 +103,8 @@ P0-EV-020 — **Portable override regressions: PASS before final release.** `pnp
 | 2026-11-24 | 1.0.0   | Established the approved Phase 0 record.                                                                                                                |
 | 2026-11-24 | 1.1.0   | Preserved baseline and failures; appended exact PR/main CI, preservation/security/backlog evidence, runtime blocker and pending release/rollback gates. |
 | 2026-11-24 | 1.2.0   | Appended actual managed signing-key/HTTP and read-only readiness results and override regressions; preserved previous blocked records.                  |
+| 2026-11-24 | 1.3.0   | Appended final PR/main/tag/clone/archive evidence and visible corrected packaging-tool failure; retained exact checkpoint and customer boundaries.      |
 
 ---
 
-**Document footer — MGECS-REBUILD-EVIDENCE v1.2.0 | Status: phase0-release-pending | Next review: actual config/runtime results, final PR/tag pipeline and one final managed checkpoint.**
+**Document footer — MGECS-REBUILD-EVIDENCE v1.3.0 | Status: phase0-foundation-verified | Next review: actual config/runtime results, final PR/tag pipeline and one final managed checkpoint.**
