@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-HANDOFF
-version: 1.4.0
-status: phase1-development-live-acceptance-pending
+version: 1.5.0
+status: phase1-source-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -105,6 +105,18 @@ P1-EV-007 — Source `46c46e62ef38b59dc6e47f133a45c6c91b8b1ffb` opened [PR #12](
 
 P1-EV-008 — A separate finite loopback fixture probe passed actual HTTP process restart: persisted identity authenticated after a process stop/restart; successful logout remained revoked after another stop/restart and the replayed cookie returned null identity/401 operator access. It used only the guarded disposable DB, generated isolated key and fixture; the fixture was deleted. This is physical process durability evidence, not real OAuth/HTTPS browser-cookie/managed replica UAT. The helper initially had a CJS/top-level-await module error; explicit ESM extension corrected the test helper, not application code. Cold strict `tsc --noEmit --incremental false` passed. Managed status had stale watcher diagnostics for removed SDK methods; the cold check and actual source supersede that stale cache, not a diagnostic waiver. Public development health/anonymous identity probes succeeded; managed migration/origin approval/live account acceptance remain pending.
 
+## Verified Phase 1 source delivery — 2026-11-24, v1.5.0
+
+P1-EV-009 — Corrective source `91fc1550f7a83490f87c34f7ddd20182554965bc` passed [PR CI 45485100254](https://github.com/mltmacster/michaels-concierge/actions/runs/45485100254), both `quality` and `identity-database`. [Protected PR #12](https://github.com/mltmacster/michaels-concierge/pull/12) merged as `6b5d83f32440885e5d44f86847766082e90b6d17`. [Exact-main CI 45485475948](https://github.com/mltmacster/michaels-concierge/actions/runs/45485475948) passed both jobs, including production Docker build and verified artifact upload. The tag-only delivery job correctly skipped. No Phase 1 tag or managed production promotion was created.
+
+P1-EV-010 — Independent public-clone verification of corrective source `91fc1550f7a83490f87c34f7ddd20182554965bc` used an environment cleared to PATH/HOME only, with no inherited NODE_ENV or app credentials. Locked install, full verify, cold strict compiler, production build/smoke, all 25 browser tests and production audit passed. Portable tests: 323 passed, one actual-environment test skipped, nine files; 12 controlled docs and 36 local links passed. Main merge has the same Git tree `65aac8abcdd2cab85f397d4ad642248865d424a8`. This proves that exact implementation tree, not future source edits or live OAuth. Production audit remains zero critical/high/moderate and one low KaTeX advisory.
+
+P1-EV-011 — Both `quality` and `identity-database` are now mandatory main checks bound to the existing GitHub Actions app, with strict/up-to-date checks. Read-back comparison confirmed every other protection control unchanged: administrators, PR flow, resolved conversations and no force/delete. The initial receipt helper rejected ANSI-colored CLI JSON, so the separate narrow protection updater stripped only ANSI formatting and completed a fail-closed read-back verification. Original protection was never removed or bypassed; PR #12 had passed both jobs before merging, and both checks became mandatory before the receipt-only follow-up. Use saved scripts with fail-closed sequencing rather than loosely chained multiline shell snippets.
+
+P1-EV-012 — The audit archive was refreshed from passing public PR CI: 28 low-resolution intercepted-DTO JPEG captures, no personal sessions or production fixture accounts. Mobile customer identity and forged-operator denial were visually checked; Home/Identity/Foundation and Back to Identity remain readable escape paths. The private disposable MariaDB service is stopped and port3307 has no listener. Its supervisor reported exit137 on cleanup; no managed service, paid VM or system/public DB service was installed or stopped.
+
+The following receipt-only documentation update must pass its own protected PR/main checks. Its final exact-main CI and single source-only managed checkpoint are supplied in an external delivery receipt, because a snapshot cannot include its own future identifier. The implementation/first-main IDs above remain immutable evidence. Managed origin approval/configuration, additive ledger migration, real OAuth/HTTPS customer and exact approved-operator acceptance, backup/restore and production/security operating acceptance remain pending. Latest read-only aggregate still had zero managed accounts and one Phase 0 migration entry; no managed identity or role write occurred. Do not begin request workflows or auto-publish Phase 1.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                            |
@@ -114,6 +126,9 @@ P1-EV-008 — A separate finite loopback fixture probe passed actual HTTP proces
 | 2026-11-24 | 1.2.0   | Cleared the securely configured signing-key/runtime gate with actual tests and read-only readiness; final source/release/checkpoint gates remain. |
 | 2026-11-24 | 1.3.0   | Appended verified main/tag/prerelease/archive receipts, exact clean-clone scope, Phase 1 next actions and foundation rollback boundary.           |
 
+| 2026-11-24 | 1.4.0 | Added bounded identity implementation and local tests; retained live-pending state. |
+| 2026-11-24 | 1.5.0 | Appended corrective PR/main/clone, protection, browser and cleanup evidence without erasing failures. |
+
 ---
 
-**Document footer — MGECS-REBUILD-HANDOFF v1.4.0 | Status: phase1-development-live-acceptance-pending | Next review: actual config/runtime verification and final release evidence.**
+**Document footer — MGECS-REBUILD-HANDOFF v1.5.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: actual config/runtime verification and final release evidence.**
