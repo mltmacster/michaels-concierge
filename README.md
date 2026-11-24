@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-README
-version: 1.4.0
-status: phase1-development-live-acceptance-pending
+version: 1.5.0
+status: phase1-source-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -137,6 +137,14 @@ Read the [identity implementation plan](docs/Phase1_Identity_Security.md) and [c
 
 The additive ledger migration is generated/reviewed and tested on disposable SQL, but **not yet applied to the managed database**. Exact origins await owner approval/configuration; production-mode actual configuration acceptance, real OAuth/HTTPS cookie UAT, approved operator provisioning and backup/restore remain pending. No Phase 1 production promotion occurred; the published Phase 0 foundation remains the rollback baseline. Customer requests, operator queues, notification/real-time delivery, provider/AI integrations, billing and commercial readiness are not enabled. Verified source/CI is not evidence of live identity acceptance.
 
+## Verified Phase 1 implementation — 2026-11-24
+
+[PR #12](https://github.com/mltmacster/michaels-concierge/pull/12) passed both [corrected PR checks](https://github.com/mltmacster/michaels-concierge/actions/runs/45485100254) and merged as `6b5d83f32440885e5d44f86847766082e90b6d17`. [Exact-main CI](https://github.com/mltmacster/michaels-concierge/actions/runs/45485475948) passed quality, MySQL8 integration, Docker build and artifact upload. Both quality and identity-database are required main checks; existing protections remain unchanged.
+
+Independent credential-cleared public-clone verification passed locked install, full verify, cold strict types, production build/smoke, 323 portable tests (one actual-environment gate skipped), all 25 browser tests and production audit. All 20 guarded persistence cases passed on disposable MariaDB and in public MySQL8 CI. A separate loopback HTTP restart/logout replay proof passed; 28 fixture-only low-resolution browser captures were retained. One low KaTeX advisory remains, with zero critical/high/moderate production advisories. Detailed immutable receipts and the preserved failed selector run are in [the handoff](HANDOFF.md) and [evidence ledger](docs/evidence/Evidence_Ledger.md).
+
+This is verified development source, not live customer identity acceptance. The receipt-only follow-up requires its own checks and the final source-only checkpoint is delivered separately. The published Phase 0 domain is unchanged. Exact origin approval/configuration, managed additive migration, real permitted-account OAuth/HTTPS/operator acceptance and backup/restore must precede request workflows or production promotion.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                              |
@@ -146,6 +154,9 @@ The additive ledger migration is generated/reviewed and tested on disposable SQL
 | 2026-11-24 | 1.2.0   | Recorded actual app-key/signature/HTTP validation and restored development preview with read-only readiness.                        |
 | 2026-11-24 | 1.3.0   | Added verified prerelease, exact source/checksum usage, immutable documentation boundary and Phase 1 entry points.                  |
 
+| 2026-11-24 | 1.4.0 | Documented bounded identity controls and pending live configuration/migration acceptance. |
+| 2026-11-24 | 1.5.0 | Appended verified implementation PR/main/clone and explicit source-only delivery boundary. |
+
 ---
 
-**Document footer — MGECS-REBUILD-README v1.4.0 | Status: phase1-development-live-acceptance-pending | Next review: Phase 0 gate evidence and Phase 1 contract work.**
+**Document footer — MGECS-REBUILD-README v1.5.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: approved live identity/configuration/migration and data recovery gates.**

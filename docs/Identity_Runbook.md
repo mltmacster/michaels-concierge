@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-IDENTITY-RUNBOOK
-version: 1.0.0
+version: 1.1.0
 status: development-controls-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
@@ -53,7 +53,7 @@ Every tRPC mutation requires an exact allowed Origin, `X-MGECS-Request: 1`, appl
 4. Inventory live schema/version/counts read-only and preserve a private backup/restore plan. Review the generated additive SQL and rehearse on a fresh disposable DB. Do not execute test fixtures through the managed SQL tool or use `db:push` against shared data. A managed migration receipt must record exactly which statements ran and post-migration metadata/counts; startup/readiness will not create the ledger.
 5. Verify actual HTTPS sign-in, cookie attributes, return navigation, own profile, current role, logout and replay with permitted accounts. Verify storage failure without corrupting live records. A fixture/intercepted browser result is not real OAuth acceptance.
 6. For operator provisioning, obtain Michael's explicit approval for the exact verified account. Privately check the numeric ID/provider identity, then perform a reviewed role change and revoke all that account's existing sessions in one transaction. Record a redacted approval/result. Never invent an operator, use OWNER_OPEN_ID as authorization, or publish email/openId. No role-management UI is shipped here.
-7. Verify both exact-source GitHub jobs, container, migration/config acceptance and rollback. Save the final checkpoint and obtain promotion approval only after outstanding live gates are settled.
+7. Verify both exact-source GitHub jobs and container before saving a source-only development checkpoint. This does not publish or clear live acceptance. Obtain production promotion approval only after migration/config/account acceptance, data recovery and rollback gates are settled.
 
 ## Disposable testing and safety
 
@@ -73,6 +73,13 @@ Source rollback is not database restore. An additive empty ledger can remain whi
 
 Read [../HANDOFF.md](../HANDOFF.md), the latest [evidence ledger](evidence/Evidence_Ledger.md) and this runbook. Confirm current source/checkpoint/CI, origin configuration and whether the managed ledger was actually migrated. Do not infer any of those from a passing local test. Complete named-account OAuth/operator acceptance and Phase 1 data recovery gates before request UI or paid capability. Preserve historical failures and append exact corrective evidence.
 
+## Change log
+
+| Date       | Version | Change                                                                                   |
+| ---------- | ------- | ---------------------------------------------------------------------------------------- |
+| 2026-11-24 | 1.0.0   | Established the bounded identity/schema/API/hook/deployment and recovery contract.       |
+| 2026-11-24 | 1.1.0   | Clarified verified source-only checkpoints versus separately gated production promotion. |
+
 ---
 
-**Document footer — MGECS-IDENTITY-RUNBOOK v1.0.0 | Status: development-controls-live-acceptance-pending | Next review: managed configuration/migration and actual permitted-account acceptance.**
+**Document footer — MGECS-IDENTITY-RUNBOOK v1.1.0 | Status: development-controls-live-acceptance-pending | Next review: managed configuration/migration and actual permitted-account acceptance.**
