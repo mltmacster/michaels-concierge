@@ -10,6 +10,7 @@ function fixture(): NodeJS.ProcessEnv {
     VITE_APP_ID: "configuration-test",
     OAUTH_SERVER_URL: "https://oauth.example.invalid",
     VITE_OAUTH_PORTAL_URL: "https://login.example.invalid",
+    MGECS_APP_ORIGINS: "https://app.example.invalid",
   };
 }
 
@@ -61,23 +62,25 @@ describe("runtime configuration", () => {
     async () => {
       const config = loadRuntimeConfig(process.env);
       expect(config.JWT_SECRET.length).toBeGreaterThanOrEqual(32);
-      const { sdk } = await import("./_core/sdk");
+      const { createSessionCodec } = await import("./security/sessionTokens");
       const { jwtVerify } = await import("jose");
       const { createApp } = await import("./app");
       const { default: request } = await import("supertest");
       // A short-lived isolated proof, never an account or stored fixture.
-      const token = await sdk.createSessionToken("configuration-probe", {
-        name: "Configuration probe",
-        expiresInMs: 60_000,
+      const codec = createSessionCodec({
+        secret: config.JWT_SECRET,
+        appId: config.VITE_APP_ID,
+        absoluteMs: 60_000,
       });
+      const { token } = await codec.issue(1);
       const key = new TextEncoder().encode(config.JWT_SECRET);
       await expect(
         jwtVerify(token, key, { algorithms: ["HS256"] })
       ).resolves.toBeDefined();
       await expect(jwtVerify(token, randomBytes(32))).rejects.toThrow();
-      await expect(sdk.verifySession(token)).resolves.toMatchObject({
-        openId: "configuration-probe",
-        appId: config.VITE_APP_ID,
+      await expect(codec.verify(token)).resolves.toMatchObject({
+        sub: "1",
+        aud: config.VITE_APP_ID,
       });
       // Health is intentionally not authenticated; no identity/DB API is called.
       const response = await request(createApp())
@@ -102,5 +105,56 @@ describe("runtime configuration", () => {
     expect(() =>
       loadRuntimeConfig({ ...fixture(), OAUTH_SERVER_URL: "http://localhost" })
     ).toThrow("HTTPS");
+  });
+  it.each([
+    undefined,
+    "",
+    "https://app.example.invalid/",
+    "http://app.example.invalid",
+    "https://user:pass@app.example.invalid",
+    "https://app.example.invalid/path",
+    "null",
+  ])("rejects unsafe production origin %s", value => {
+    const env = fixture();
+    if (value === undefined) delete env.MGECS_APP_ORIGINS;
+    else env.MGECS_APP_ORIGINS = value;
+    expect(() => loadRuntimeConfig(env)).toThrow("MGECS_APP_ORIGINS");
+  });
+  it("accepts multiple exact HTTPS origins and removes duplicates", () => {
+    expect(
+      loadRuntimeConfig({
+        ...fixture(),
+        MGECS_APP_ORIGINS:
+          "https://a.example.invalid, https://b.example.invalid,https://a.example.invalid",
+      }).appOrigins
+    ).toEqual(["https://a.example.invalid", "https://b.example.invalid"]);
+  });
+  it.each(["0", "59", "86401", "NaN", "1.5"])(
+    "rejects unsafe absolute timeout %s",
+    value => {
+      expect(() =>
+        loadRuntimeConfig({
+          ...fixture(),
+          MGECS_SESSION_ABSOLUTE_SECONDS: value,
+        })
+      ).toThrow("MGECS_SESSION_ABSOLUTE_SECONDS");
+    }
+  );
+  it.each(["0", "59", "1801", "NaN", "1.5"])(
+    "rejects unsafe idle timeout %s",
+    value => {
+      expect(() =>
+        loadRuntimeConfig({ ...fixture(), MGECS_SESSION_IDLE_SECONDS: value })
+      ).toThrow("MGECS_SESSION_IDLE_SECONDS");
+    }
+  );
+  it("rejects idle longer than absolute timeout", () => {
+    expect(() =>
+      loadRuntimeConfig({
+        ...fixture(),
+        MGECS_SESSION_ABSOLUTE_SECONDS: "60",
+        MGECS_SESSION_IDLE_SECONDS: "900",
+      })
+    ).toThrow("exceeds absolute");
   });
 });

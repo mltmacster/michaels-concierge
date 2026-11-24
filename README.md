@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-README
-version: 1.3.0
-status: phase0-foundation
+version: 1.4.0
+status: phase1-development-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -125,6 +125,18 @@ Follow [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Do not
 
 The owner securely configured the app-only signing key and verified read-only readiness. Source, CI/artifact delivery and the managed development preview are established; customer operations are not launched. The next implementation gates are [Phase 1 identity/security](https://github.com/mltmacster/michaels-concierge/issues/2) and [data/migrations/disposable tests](https://github.com/mltmacster/michaels-concierge/issues/3).
 
+## Current Phase 1 identity/security scope — 2026-11-24
+
+This section supersedes the earlier Phase 0 “what works” scope. The development source implements a customer identity portal (`/identity`), independent operator verification (`/operator`), minimal self-profile API, explicit self-ownership/role denial, and bounded ledger-backed cookie sessions. The original OAuth transport remains; legacy session/bearer/cron/owner-promotion paths are removed. New accounts are customers. No operator is provisioned without explicit named-account approval.
+
+Sessions use the app-owned key, exact issuer/audience/subject, one-hour absolute/fifteen-minute idle defaults, hash-only durable registration and server-side logout revocation. Current roles are read from SQL; authenticated activity writes only the session ledger, not user profiles/roles. Secure host-only Lax cookies, strict mutation Origin/Fetch Metadata/JSON/custom-header checks, sanitized errors and stable redacted events are implemented. Supplementary rate limits are per process, not distributed or configured proxy/edge protection.
+
+Read the [identity implementation plan](docs/Phase1_Identity_Security.md) and [contract/runbook](docs/Identity_Runbook.md). Production additionally requires `MGECS_APP_ORIGINS`, a comma-separated exact HTTPS allowlist with no path/credentials/trailing slash. The browser supplies its actual origin; the server never authorizes from Host/forwarded headers. Optional `MGECS_SESSION_ABSOLUTE_SECONDS` defaults to 3600 (60–86400) and `MGECS_SESSION_IDLE_SECONDS` defaults to 900 (60–1800, no longer than absolute). An unconfigured preview can serve public pages but cannot complete login from an unapproved origin. Legacy sessions require explicit sign-in; no JavaScript-token fallback or invisible redirect is used.
+
+`pnpm test:database` is a separate, guarded, mutating integration command. It requires both `AI_UNK_TEST_DATABASE=true` and `RUN_DATABASE_TESTS=true`, and a restricted `mgecs_test` user on localhost/127.0.0.1 with a freshly empty test-named MySQL8/MariaDB schema. The launcher refuses preexisting objects, applies reviewed migrations and runs only database tests with a generated isolated key. It never drops a database or targets managed data. The GitHub `identity-database` job provides its own disposable MySQL service. Browser fixtures intercept DTO responses inside tests only; no mock/demo accounts or fixture mode are shipped.
+
+The additive ledger migration is generated/reviewed and tested on disposable SQL, but **not yet applied to the managed database**. Exact origins await owner approval/configuration; production-mode actual configuration acceptance, real OAuth/HTTPS cookie UAT, approved operator provisioning and backup/restore remain pending. No Phase 1 production promotion occurred; the published Phase 0 foundation remains the rollback baseline. Customer requests, operator queues, notification/real-time delivery, provider/AI integrations, billing and commercial readiness are not enabled. Verified source/CI is not evidence of live identity acceptance.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                              |
@@ -136,4 +148,4 @@ The owner securely configured the app-only signing key and verified read-only re
 
 ---
 
-**Document footer — MGECS-REBUILD-README v1.3.0 | Status: phase0-foundation | Next review: Phase 0 gate evidence and Phase 1 contract work.**
+**Document footer — MGECS-REBUILD-README v1.4.0 | Status: phase1-development-live-acceptance-pending | Next review: Phase 0 gate evidence and Phase 1 contract work.**

@@ -28,6 +28,7 @@ const env = {
   DATABASE_URL: "mysql://127.0.0.1:1/isolated_smoke",
   JWT_SECRET: randomBytes(32).toString("hex"),
   VITE_APP_ID: "isolated-smoke",
+  MGECS_APP_ORIGINS: "https://app.example.invalid",
   OAUTH_SERVER_URL: "https://oauth.example.invalid",
   VITE_OAUTH_PORTAL_URL: "https://login.example.invalid",
 };

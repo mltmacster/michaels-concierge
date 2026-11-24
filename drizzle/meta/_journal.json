@@ -8,6 +8,13 @@
       "when": 1795542209649,
       "tag": "0000_lucky_mojo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1795552224810,
+      "tag": "0001_mature_vindicator",
+      "breakpoints": true
     }
   ]
 }

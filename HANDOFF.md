@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-HANDOFF
-version: 1.3.0
-status: phase0-foundation-verified
+version: 1.4.0
+status: phase1-development-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -79,6 +79,26 @@ The final receipt additions are docs-only and must pass their own protected PR/m
 
 **Rollback:** the tagged `v0.0.1-phase0` / `540ab1f733a2a8d562e7fe6febd34b7c5195d49a` is the verified foundation source; final main differs only by evidence documentation. Restore approved app configuration separately; rotating the signing key invalidates signatures. No database rollback is implied. Do not use the broken legacy prototype as a production rollback. Check current source/checkpoint/CI/readiness on resumption rather than assuming this session persists.
 
+## Phase 1 implementation handoff — 2026-11-24, v1.4.0
+
+Michael authorized customer/operator identity, permissions and session security. Work is on `phase1/identity-security`, based on final Phase 0 `53ba1a3876c026b61220f9aa60f6b583cd4f89d0` / managed checkpoint `53ba1a38`. This current entry supersedes prior next-work statements only for the implemented source. [The preimplementation plan](docs/Phase1_Identity_Security.md) records scope and independent review; [the runbook](docs/Identity_Runbook.md) records current schema/API/hook/deployment contracts.
+
+Implemented: one managed OAuth transport with application session codec/SQL ledger; numeric users.id, no role claims/auto-promotion/read-time identity sync/bearer/cron bypass; minimal self identity and permissions, exact self-profile ownership, independent operator access; bounded issuer/audience/absolute/idle/registered/revoked checks; persist-before-cookie/revoke-before-success; strict production/dev cookie separation, Origin/Fetch Metadata/JSON/custom mutation header; distinct outage and redacted public errors/events; customer/operator portal with no production mock records and honest failed-logout states. Authenticated activity may update session lastSeen only, never user profile/role. The FK/indexed UTC-ms ledger migration is additive and reviewed.
+
+Observed local evidence: 114 codec tests; the complete portable suite subsequently passed 323 cases with one actual-environment case intentionally skipped. All 20 guarded SQL integration tests passed on an unprivileged private loopback MariaDB 10.11.14 disposable schema, including role preservation/demotion, hash-only ledger, ownership/FK/cascade, expiry, revocation and closed-pool outage. Independent connections/second service are durable-storage evidence, not a claimed physical process-restart/replica UAT. Targeted browser portal suite passed 22 tests; full final gates/CI are recorded in subsequent exact receipts when observed.
+
+No managed fixtures, identity writes, operator grants or Phase 1 promotion occurred. Live read-only inventory had zero accounts before development. `MGECS_APP_ORIGINS` approval/configuration is pending for the two existing origins; no key value was retrieved or changed. Managed ledger SQL has NOT run. Real OAuth/customer/operator UAT, cookie behavior, data backup/restore, transport/CSP/MFA/central monitoring/distributed abuse acceptance remain pending. No customer request UI should be started.
+
+Next agent: check branch/main/checkpoint and exact CI anew; inspect the latest ledger and runbook. Obtain exact origin approval and configure through the managed store; run actual production-mode config test without printing credentials. Inventory live schema/counts and apply only reviewed additive migration after its guarded rehearsal and checkpoint. Verify resulting metadata/counts, then permitted real-account OAuth/self-profile/logout replay. Request exact verified operator approval and revoke that account's old sessions transactionally with any role change. Complete Phase 1 data recovery before request workflows. Do not infer live completion from fixture tests or auto-publish the development checkpoint.
+
+Rollback remains the published Phase 0 foundation/checkpoint `53ba1a38`; code rollback is not a database restore. An empty additive ledger need not be dropped. Once identity is used, do not restore insecure legacy sessions. Full pre-commit validation, both exact GitHub jobs, main container/artifact evidence and one final managed checkpoint must settle before bounded delivery. No Phase 1 tag/customer launch is implied.
+
+## Final local Phase 1 gates — 2026-11-24, 20:44 UTC
+
+P1-EV-006 — Full `pnpm verify` passed with zero type/lint/format diagnostics, controlled-document checks, 323 portable cases (one actual-environment case skipped), build and isolated production smoke. All 25 desktop/mobile/failure/logout browser checks passed; mobile customer and forged-role denial captures were visually inspected for legibility and Home/Identity/Foundation return paths. All 20 guarded MariaDB persistence/security cases passed. Source/history Gitleaks and diff checks passed; production audit remains 0 critical/high/moderate, 1 low KaTeX finding. The first final verify refused two formatter deviations; formatting was corrected and every gate rerun, not waived.
+
+Exact protected PR/main/container checks and final checkpoint remain future receipts. Managed origins/ledger migration, actual OAuth/operator UAT and backup/restore remain pending; no Phase 1 live promotion occurred.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                            |
@@ -90,4 +110,4 @@ The final receipt additions are docs-only and must pass their own protected PR/m
 
 ---
 
-**Document footer — MGECS-REBUILD-HANDOFF v1.3.0 | Status: phase0-foundation-verified | Next review: actual config/runtime verification and final release evidence.**
+**Document footer — MGECS-REBUILD-HANDOFF v1.4.0 | Status: phase1-development-live-acceptance-pending | Next review: actual config/runtime verification and final release evidence.**

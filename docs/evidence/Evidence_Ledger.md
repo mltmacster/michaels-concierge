@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-EVIDENCE
-version: 1.3.0
-status: phase0-foundation-verified
+version: 1.4.0
+status: phase1-development-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -96,6 +96,24 @@ P0-EV-024 — **Packaging-tool failure corrected without waiving verification.**
 
 P0-EV-025 — **Final documentation/checkpoint boundary.** These final receipts are appended after the immutable tag artifact, in a docs-only follow-up. Their exact protected PR/main checks and the single final managed checkpoint remain required before delivery. The final platform checkpoint receipt and any later exact-main CI pointer are delivered separately. Do not invent a self-referential checkpoint/source identifier or reinterpret artifact CD as live customer deployment.
 
+## Phase 1 source/integration evidence — 2026-11-24
+
+P1-EV-001 — Baseline `53ba1a3` passed tests/types/build before implementation. Read-only published GET health was 200; separate managed metadata/aggregate showed users + migration journal and zero accounts. No identity/role/fixture writes occurred. Independent review found missing claim/lifetime enforcement, year-long sessions, owner auto-promotion/read-time sync, cookie-only logout, CSRF/forwarded-scheme trust and raw error/outage masking; bounded corrections were planned first.
+
+P1-EV-002 — Codec-only suite passed 114/114 with isolated random keys. Later portable run passed 323 tests across 9 files, one actual-environment proof skipped by default; tests include exact claims, mandatory expiry, invalid/legacy/wrong-key/alg/token, ledger/idle/revoked, roles/self ownership, OAuth origin/nonce/Unicode cookie, mutation policy, outage, redaction and rate-limit checks. No managed test writes occurred.
+
+P1-EV-003 — Initial local DB package fetch lacked package metadata; refreshing it resolved the environment issue. Runtime was privately extracted rather than installing a system/public DB service. Generated SQL was reviewed, then applied by the guard to an empty private loopback MariaDB10.11.14 schema. First 18 SQL cases passed. Added collation tests initially expected an outage for a rejected/absent subject; the contract was corrected to explicit invalid-provider-identity rejection, retaining full no-profile/role-mutation assertions. Final 20/20 integration cases passed. Independent SQL observations/service reconstruction establish durable persistence, not real provider/physical restart/customer UAT.
+
+P1-EV-004 — Isolated portal browser suite passed 22/22 after correcting test-selector and refresh synchronization mistakes, not production behavior. Parent's first simultaneous full browser command was refused because the agent harness owned port4179; no reuse/kill bypass was used. The agent exited its harness before parent full rerun. Twenty-eight low-resolution DTO-fixture screenshots were created; final full-suite/visual inspection receipts follow when observed. No personal browser/provider/DB session was used.
+
+P1-EV-005 — Managed migration, exact-origin configuration, actual production-mode config acceptance and real-account OAuth/operator UAT remain pending. No live operator was created, no Phase 1 deployment was promoted and backup/restore is not claimed. Final pre-commit/secret/dependency scans, protected PR/main CI/container and checkpoint outcomes must be appended as observed; earlier successful tests do not prove a later untested commit.
+
+## Final local Phase 1 gates — 2026-11-24, 20:44 UTC
+
+P1-EV-006 — Full `pnpm verify` passed with zero type/lint/format diagnostics, controlled-document checks, 323 portable cases (one actual-environment case skipped), build and isolated production smoke. All 25 desktop/mobile/failure/logout browser checks passed; mobile customer and forged-role denial captures were visually inspected for legibility and Home/Identity/Foundation return paths. All 20 guarded MariaDB persistence/security cases passed. Source/history Gitleaks and diff checks passed; production audit remains 0 critical/high/moderate, 1 low KaTeX finding. The first final verify refused two formatter deviations; formatting was corrected and every gate rerun, not waived.
+
+Exact protected PR/main/container checks and final checkpoint remain future receipts. Managed origins/ledger migration, actual OAuth/operator UAT and backup/restore remain pending; no Phase 1 live promotion occurred.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                                  |
@@ -107,4 +125,4 @@ P0-EV-025 — **Final documentation/checkpoint boundary.** These final receipts 
 
 ---
 
-**Document footer — MGECS-REBUILD-EVIDENCE v1.3.0 | Status: phase0-foundation-verified | Next review: actual config/runtime results, final PR/tag pipeline and one final managed checkpoint.**
+**Document footer — MGECS-REBUILD-EVIDENCE v1.4.0 | Status: phase1-development-acceptance-pending | Next review: actual config/runtime results, final PR/tag pipeline and one final managed checkpoint.**

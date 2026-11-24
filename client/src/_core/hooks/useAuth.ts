@@ -1,100 +1,79 @@
-import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
+import { useQueryClient } from "@tanstack/react-query";
 import { TRPCClientError } from "@trpc/client";
-import { useCallback, useEffect, useMemo } from "react";
+import { getQueryKey } from "@trpc/react-query";
+import { useCallback } from "react";
 
-type UseAuthOptions = {
-  redirectOnUnauthenticated?: boolean;
-  redirectPath?: string;
-};
+export function getIdentityErrorState(error: unknown) {
+  if (error instanceof TRPCClientError) {
+    switch (error.data?.code) {
+      case "UNAUTHORIZED":
+        return "unauthorized";
+      case "FORBIDDEN":
+        return "forbidden";
+      case "SERVICE_UNAVAILABLE":
+        return "unavailable";
+    }
+  }
+  return "error";
+}
 
-export function useAuth(options?: UseAuthOptions) {
-  // Login is started via startLogin() in the effect below, only when we actually
-  // navigate — never during render. startLogin() mints a one-time nonce + writes
-  // the state cookie, so calling it per render would overwrite the cookie and
-  // desync it from an in-flight login's `state`.
-  const { redirectOnUnauthenticated = false, redirectPath } = options ?? {};
+export function useAuth() {
   const utils = trpc.useUtils();
-
+  const queryClient = useQueryClient();
   const meQuery = trpc.auth.me.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
   const logoutMutation = trpc.auth.logout.useMutation({
-    onSuccess: () => {
+    retry: false,
+    onSuccess: async () => {
+      // Only a confirmed server logout may discard identity/private query data.
+      // Cancel in-flight reads so an old response cannot restore the principal.
+      await queryClient.cancelQueries();
+      const identityQuery = queryClient.getQueryCache().find({
+        queryKey: getQueryKey(trpc.auth.me, undefined, "query"),
+        exact: true,
+      });
+      queryClient.removeQueries({
+        predicate: query => query !== identityQuery,
+      });
       utils.auth.me.setData(undefined, null);
     },
   });
 
-  const logout = useCallback(async () => {
-    try {
-      await logoutMutation.mutateAsync();
-    } catch (error: unknown) {
-      if (
-        error instanceof TRPCClientError &&
-        error.data?.code === "UNAUTHORIZED"
-      ) {
-        return;
-      }
-      throw error;
-    } finally {
-      // Clear the Preview auto-login token mirrored into sessionStorage, so
-      // header-based sessions (Safari ITP / WebView) are logged out too. The
-      // backend cookie is cleared by the logout mutation.
-      try {
-        sessionStorage.removeItem("manus-cookie");
-      } catch {
-        // Browser storage may be disabled; the server cookie is still cleared.
-      }
-      utils.auth.me.setData(undefined, null);
-      await utils.auth.me.invalidate();
-    }
-  }, [logoutMutation, utils]);
-
-  const state = useMemo(() => {
-    localStorage.setItem(
-      "manus-runtime-user-info",
-      JSON.stringify(meQuery.data)
-    );
-    return {
-      user: meQuery.data ?? null,
-      loading: meQuery.isLoading || logoutMutation.isPending,
-      error: meQuery.error ?? logoutMutation.error ?? null,
-      isAuthenticated: Boolean(meQuery.data),
-    };
-  }, [
-    meQuery.data,
-    meQuery.error,
-    meQuery.isLoading,
-    logoutMutation.error,
-    logoutMutation.isPending,
-  ]);
-
-  useEffect(() => {
-    if (!redirectOnUnauthenticated) return;
-    if (meQuery.isLoading || logoutMutation.isPending) return;
-    if (state.user) return;
-    if (typeof window === "undefined") return;
-    if (redirectPath && window.location.pathname === redirectPath) return;
-
-    // Navigate at this moment only. startLogin() mints the nonce + cookie itself.
-    if (redirectPath) {
-      window.location.href = redirectPath;
-    } else {
-      startLogin();
-    }
-  }, [
-    redirectOnUnauthenticated,
-    redirectPath,
-    logoutMutation.isPending,
-    meQuery.isLoading,
-    state.user,
-  ]);
+  // A rejected mutation stays rejected and retains the session/cache. In
+  // particular, UNAUTHORIZED is not a successful server-side revocation.
+  const logout = useCallback(
+    () => logoutMutation.mutateAsync(),
+    [logoutMutation]
+  );
+  const refresh = useCallback(() => meQuery.refetch(), [meQuery]);
+  const user = meQuery.data ?? null;
+  const status = meQuery.isLoading
+    ? "loading"
+    : meQuery.error
+      ? getIdentityErrorState(meQuery.error)
+      : user
+        ? "authenticated"
+        : "anonymous";
 
   return {
-    ...state,
-    refresh: () => meQuery.refetch(),
+    // Preserve the backend's user/admin role for existing unused layout callers.
+    // identityRole/permissions inform display, never grant backend access.
+    user,
+    status,
+    loading: meQuery.isLoading,
+    refreshing: meQuery.isFetching && !meQuery.isLoading,
+    authError: meQuery.error,
+    error: meQuery.error ?? logoutMutation.error ?? null,
+    isAuthenticated: status === "authenticated",
+    logoutPending: logoutMutation.isPending,
+    logoutError: logoutMutation.error,
+    logoutState: logoutMutation.status,
+    refresh,
     logout,
   };
 }

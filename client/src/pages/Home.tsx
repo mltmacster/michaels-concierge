@@ -28,12 +28,23 @@ export default function Home() {
             </span>
           </span>
         </Link>
-        <Link
-          href="/foundation"
-          className="text-sm underline-offset-4 hover:underline"
+        <nav
+          aria-label="Main navigation"
+          className="flex flex-wrap justify-end gap-x-5 gap-y-2 text-sm"
         >
-          Build status <ArrowUpRight className="ml-1 inline size-4" />
-        </Link>
+          <Link
+            href="/identity"
+            className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
+          >
+            Identity
+          </Link>
+          <Link
+            href="/foundation"
+            className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
+          >
+            Build status <ArrowUpRight className="ml-1 inline size-4" />
+          </Link>
+        </nav>
       </header>
       <main id="main" className="mx-auto max-w-7xl px-6 md:px-12">
         <section className="grid gap-12 py-16 md:grid-cols-[1.3fr_1fr] md:py-28">
@@ -81,8 +92,9 @@ export default function Home() {
               </p>
             </div>
             <p className="mt-8 border-t border-[#1a2925]/20 pt-5 text-xs leading-relaxed">
-              Foundation preview. Customer requests, reservations, AI
-              recommendations, and billing are not available in this release.
+              Foundation and identity preview—not a customer service launch.
+              Customer requests, reservations, AI recommendations, and billing
+              are not available in this release.
             </p>
           </aside>
         </section>
