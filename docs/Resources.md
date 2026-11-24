@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-REBUILD-RESOURCES
-version: 1.2.0
+version: 1.3.0
 status: active-inventory
 owner: Michael Thomas
 maintainer: Manus AI
@@ -33,13 +33,21 @@ The existing published origin is `https://michaelconci-l64nfwmv.manus.space`; th
 
 A finite private MariaDB 10.11.14 runtime was extracted in the sandbox, run unprivileged on loopback only and used exclusively for guarded fixture tests. It is not a purchased VM, hosted product database or persistent service deployment. GitHub's independent MySQL8 integration service uses fixture-only credentials and a generated app key; no managed credentials enter it. Managed user/session fixtures were not inserted and additive live ledger migration is pending. Real operator identity/approval, backup/restore, proxy/edge abuse policy, transport, centralized monitoring and account lifecycle remain unassigned acceptance resources.
 
+## Approved origin configuration — 2026-11-24, 22:27 UTC
+
+Michael approved only `https://michaelconci-l64nfwmv.manus.space`. Managed configuration confirmed `MGECS_APP_ORIGINS` saved at 22:27:37 UTC; the development preview is intentionally excluded. This is public URL configuration, not a new signing key or GitHub Actions secret. Earlier interrupted/rejected requests and failed actual-environment tests are preserved in the handoff/evidence history.
+
+All 36 production configuration cases passed with the actual-environment case executing. A fresh production build and bounded sandbox production process passed listening/static/health and real read-only database readiness (`SELECT 1`). The probe was stopped. This clears the saved-origin configuration/startup blocker, not the failed managed rollout itself or ledger/OAuth/operator/recovery acceptance. Re-confirm stored configuration on resumption; do not re-request the same approved origin or expand it without approval.
+
 ## Change log
 
-| Date       | Version | Change                                                                                                        |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| 2026-11-24 | 1.0.0   | Established the approved Phase 0 record.                                                                      |
-| 2026-11-24 | 1.1.0   | Recorded securely configured app-owned session key and visible upstream action-runtime maintenance follow-up. |
+| Date       | Version | Change                                                                                                                     |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-24 | 1.0.0   | Established the approved Phase 0 record.                                                                                   |
+| 2026-11-24 | 1.1.0   | Recorded securely configured app-owned session key and visible upstream action-runtime maintenance follow-up.              |
+| 2026-11-24 | 1.2.0   | Recorded bounded Phase 1 runtime/testing resources and historically pending exact origins.                                 |
+| 2026-11-24 | 1.3.0   | Recorded approved published-only managed configuration and actual production startup proof; live identity remains pending. |
 
 ---
 
-**Document footer — MGECS-REBUILD-RESOURCES v1.2.0 | Status: active-inventory | Next review: phase-exit evidence or material change.**
+**Document footer — MGECS-REBUILD-RESOURCES v1.3.0 | Status: active-inventory | Next review: phase-exit evidence or material change.**
