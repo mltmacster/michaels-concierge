@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-HANDOFF
-version: 1.2.0
-status: phase0-release-pending
+version: 1.3.0
+status: phase0-foundation-verified
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -65,6 +65,20 @@ After the managed restart, `/api/health` returned 200 with phase `foundation`, a
 
 **Remaining exit work:** verify the final configuration/docs PR on its exact commit, merge without bypassing protection, verify the final main container/artifact job, tag the verified source as `v0.0.1-phase0`, verify same-run prerelease artifact delivery and checksum, record that receipt, and create exactly one final managed checkpoint. Then Phase 1 starts with public issues #2 and #3 and reviewed identity/data/security contracts, not customer-request UI.
 
+## Verified foundation delivery — 2026-11-24, v1.3.0
+
+Protected [PR #10](https://github.com/mltmacster/michaels-concierge/pull/10) passed [CI 45460764458](https://github.com/mltmacster/michaels-concierge/actions/runs/45460764458) and merged as `540ab1f733a2a8d562e7fe6febd34b7c5195d49a`. Exact [main CI 45461104591](https://github.com/mltmacster/michaels-concierge/actions/runs/45461104591) passed, including container build and verified artifact upload. [Tag CI 45461542649](https://github.com/mltmacster/michaels-concierge/actions/runs/45461542649) passed both quality and same-run prerelease delivery. [Foundation prerelease v0.0.1-phase0](https://github.com/mltmacster/michaels-concierge/releases/tag/v0.0.1-phase0) is explicitly marked prerelease, not customer production.
+
+The downloaded archive checksum passed and its `VERIFIED_SOURCE.txt` equals `540ab1f733a2a8d562e7fe6febd34b7c5195d49a`. SHA-256: `fa003e9e523946322ceb67b0dd0ef14837cfea77e920c1d5e9219847b38f58b5`. The archive includes the linked README/HANDOFF/security/contribution/docs records and blank environment reference, never the actual signing key. Its documentation is the immutable v1.2.0 pre-publication record; this later main-branch handoff appends the observed release result rather than pretending it was known before the artifact existed.
+
+Independent public-clone validation of `f3d2d0780b9be904bedf6bcf319bd3f68b805b80` passed locked install, full verify, 3 browser tests and production audit with the application environment cleared. Its Git tree is identical to the tagged merge. Portable CI runs 26 tests and skips exactly the opt-in actual-environment proof; the separate production-mode managed run executed all 17 configuration cases successfully. One low KaTeX advisory remains; no high/critical/moderate dependency finding remains. Preserve inherited explicit-any/deprecation/CSP and Phase 1 security debt.
+
+The final receipt additions are docs-only and must pass their own protected PR/main checks before delivery. Create exactly one final managed checkpoint after that source settles; the platform receipt is the authoritative checkpoint identifier and is delivered separately because a source snapshot cannot embed its own future identifier. This is a development foundation preview and artifact CD, not automatic managed customer deployment. No customer schema/seed migration or test writes occurred.
+
+**Next agent:** begin Phase 1 with [identity/security issue #2](https://github.com/mltmacster/michaels-concierge/issues/2) and [data/migration/test issue #3](https://github.com/mltmacster/michaels-concierge/issues/3). Inventory the current identity/session/database contract, design denial and outage behavior, reviewed migrations/backup/restore and guarded disposable integration tests, then implement the minimum customer/operator identity vertical slice. Do not activate requests, public dashboards, real-time events, providers, AI or billing until their subsequent gates pass. Ask for business policies instead of inventing pricing, service hours, SLAs or supplier agreements.
+
+**Rollback:** the tagged `v0.0.1-phase0` / `540ab1f733a2a8d562e7fe6febd34b7c5195d49a` is the verified foundation source; final main differs only by evidence documentation. Restore approved app configuration separately; rotating the signing key invalidates signatures. No database rollback is implied. Do not use the broken legacy prototype as a production rollback. Check current source/checkpoint/CI/readiness on resumption rather than assuming this session persists.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                            |
@@ -72,7 +86,8 @@ After the managed restart, `/api/health` returned 200 with phase `foundation`, a
 | 2026-11-24 | 1.0.0   | Established the approved Phase 0 record.                                                                                                          |
 | 2026-11-24 | 1.1.0   | Preserved initial records; added protected-merge/CI evidence, blocked runtime, secure-config and release gates, rollback and non-claims.          |
 | 2026-11-24 | 1.2.0   | Cleared the securely configured signing-key/runtime gate with actual tests and read-only readiness; final source/release/checkpoint gates remain. |
+| 2026-11-24 | 1.3.0   | Appended verified main/tag/prerelease/archive receipts, exact clean-clone scope, Phase 1 next actions and foundation rollback boundary.           |
 
 ---
 
-**Document footer — MGECS-REBUILD-HANDOFF v1.2.0 | Status: phase0-release-pending | Next review: actual config/runtime verification and final release evidence.**
+**Document footer — MGECS-REBUILD-HANDOFF v1.3.0 | Status: phase0-foundation-verified | Next review: actual config/runtime verification and final release evidence.**

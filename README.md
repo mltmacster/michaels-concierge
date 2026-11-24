@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-REBUILD-README
-version: 1.2.0
+version: 1.3.0
 status: phase0-foundation
 owner: Michael Thomas
 maintainer: Manus AI
@@ -119,6 +119,12 @@ docs/                  Decisions, evidence, recovery gates
 
 Follow [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Do not put credentials or personal records into public issues or artifacts. The original prototype source/logs and current managed secrets are excluded from this repository. Public source visibility does not grant an open-source license; licensing is not yet assigned by the owner.
 
+## Verified foundation delivery — 2026-11-24, v1.3.0
+
+[The verified foundation prerelease v0.0.1-phase0](https://github.com/mltmacster/michaels-concierge/releases/tag/v0.0.1-phase0) was built and delivered by [tag pipeline 45461542649](https://github.com/mltmacster/michaels-concierge/actions/runs/45461542649) from `540ab1f733a2a8d562e7fe6febd34b7c5195d49a` after its [main container/quality checks](https://github.com/mltmacster/michaels-concierge/actions/runs/45461104591) passed. Download the archive and checksum into one directory, then run `sha256sum --check foundation-build.sha256`. `VERIFIED_SOURCE.txt` inside the archive identifies its exact source. This later main-branch README/HANDOFF appends release receipts; the immutable archive contains the pre-publication documentation state.
+
+The owner securely configured the app-only signing key and verified read-only readiness. Source, CI/artifact delivery and the managed development preview are established; customer operations are not launched. The next implementation gates are [Phase 1 identity/security](https://github.com/mltmacster/michaels-concierge/issues/2) and [data/migrations/disposable tests](https://github.com/mltmacster/michaels-concierge/issues/3).
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                              |
@@ -126,7 +132,8 @@ Follow [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Do not
 | 2026-11-24 | 1.0.0   | Documented the approved Phase 0 rebuild, runnable foundation, portable checks, deployment boundaries, and non-enabled capabilities. |
 | 2026-11-24 | 1.1.0   | Documented application-owned signing-key precedence and the explicit live configuration acceptance gate.                            |
 | 2026-11-24 | 1.2.0   | Recorded actual app-key/signature/HTTP validation and restored development preview with read-only readiness.                        |
+| 2026-11-24 | 1.3.0   | Added verified prerelease, exact source/checksum usage, immutable documentation boundary and Phase 1 entry points.                  |
 
 ---
 
-**Document footer — MGECS-REBUILD-README v1.2.0 | Status: phase0-foundation | Next review: Phase 0 gate evidence and Phase 1 contract work.**
+**Document footer — MGECS-REBUILD-README v1.3.0 | Status: phase0-foundation | Next review: Phase 0 gate evidence and Phase 1 contract work.**
