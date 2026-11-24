@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-REBUILD-README
-version: 1.5.0
+version: 1.6.0
 status: phase1-source-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
@@ -145,6 +145,14 @@ Independent credential-cleared public-clone verification passed locked install, 
 
 This is verified development source, not live customer identity acceptance. The receipt-only follow-up requires its own checks and the final source-only checkpoint is delivered separately. The published Phase 0 domain is unchanged. Exact origin approval/configuration, managed additive migration, real permitted-account OAuth/HTTPS/operator acceptance and backup/restore must precede request workflows or production promotion.
 
+## Approved-origin configuration resolution — 2026-11-24, v1.6.0
+
+The immutable source/checkpoint is `a27a964537b56741daf0caf7afc6731e90a64017` / `a27a9645`. Production rollout attempts at 21:07:05 and 21:32:53 UTC failed before port 3000 startup with `Invalid runtime configuration MGECS_APP_ORIGINS`, exit 1. The owner approved only `https://michaelconci-l64nfwm.manus.space`; the interrupted initial configuration call and rejected retry remain in evidence history. The 21:48:44 actual-environment attempt had 35 portable passes and 1 actual-environment failure.
+
+Following reauthorization at 22:27:04 UTC, managed configuration confirmed `MGECS_APP_ORIGINS` saved at 22:27:37 UTC. No signing-key or GitHub-secret change is claimed. The development preview remains outside the allowlist; no origin was hardcoded, no host-derived security default was added, and no guard was relaxed. Actual production-mode configuration tests passed all 36 cases at 22:27:44 UTC with the actual-environment case executed. The new production build passed at 22:28:18 UTC. A bounded production-dist probe confirmed the exact approved published-only origin, startup, static page 200, health 200 and read-only managed DB readiness 200, then stopped at 22:29:15 UTC.
+
+This resolves the approved-origin startup blocker only, not managed rollout success or real identity acceptance. Managed migration, real OAuth/HTTPS/exact-approved-operator UAT, backup/restore/security acceptance and requests remain pending. On resume, re-confirm stored configuration rather than requesting this origin again; finish reviewed migration, account and recovery gates before describing live identity as functional. Parent-run precommit/PR/main CI and the external source/checkpoint receipt remain separate follow-up evidence.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                              |
@@ -156,7 +164,8 @@ This is verified development source, not live customer identity acceptance. The 
 
 | 2026-11-24 | 1.4.0 | Documented bounded identity controls and pending live configuration/migration acceptance. |
 | 2026-11-24 | 1.5.0 | Appended verified implementation PR/main/clone and explicit source-only delivery boundary. |
+| 2026-11-24 | 1.6.0 | Documented approved-origin configuration resolution, actual 36-case validation and bounded readiness proof without claiming rollout or live identity acceptance. |
 
 ---
 
-**Document footer — MGECS-REBUILD-README v1.5.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: approved live identity/configuration/migration and data recovery gates.**
+**Document footer — MGECS-REBUILD-README v1.6.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: managed migration, account/recovery gates and external source receipt.**

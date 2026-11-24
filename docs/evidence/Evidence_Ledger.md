@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-REBUILD-EVIDENCE
-version: 1.5.0
+version: 1.6.0
 status: phase1-source-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
@@ -132,6 +132,16 @@ P1-EV-012 — The audit archive was refreshed from passing public PR CI: 28 low-
 
 The following receipt-only documentation update must pass its own protected PR/main checks. Its final exact-main CI and single source-only managed checkpoint are supplied in an external delivery receipt, because a snapshot cannot include its own future identifier. The implementation/first-main IDs above remain immutable evidence. Managed origin approval/configuration, additive ledger migration, real OAuth/HTTPS customer and exact approved-operator acceptance, backup/restore and production/security operating acceptance remain pending. Latest read-only aggregate still had zero managed accounts and one Phase 0 migration entry; no managed identity or role write occurred. Do not begin request workflows or auto-publish Phase 1.
 
+## Approved-origin configuration resolution — 2026-11-24, v1.6.0
+
+P1-EV-013 — Immutable source/checkpoint: `a27a964537b56741daf0caf7afc6731e90a64017` / `a27a9645`. Authoritative private evidence: `/home/ubuntu/mgecs-phase1-private-evidence/deployment-approved-origin-config.log`, `deployment-approved-origin-build.log`, and `deployment-approved-origin-startup.json`/log. Production rollout logs at 21:07:05 and 21:32:53 UTC showed `Invalid runtime configuration MGECS_APP_ORIGINS`, exit 1 before port 3000 startup. The owner approved only `https://michaelconci-l64nfwm.manus.space`; the initial call was interrupted, its retry rejected, and the 21:48:44 actual-environment run recorded 35 portable passes and 1 actual-environment failure.
+
+P1-EV-014 — Reauthorization occurred at 22:27:04 UTC; managed configuration confirmed `MGECS_APP_ORIGINS` saved at 22:27:37 UTC. No signing-key or GitHub-secret change is claimed. Development preview remains unallowlisted. No hardcoded origin, host-derived security default or guard relaxation was introduced.
+
+P1-EV-015 — `NODE_ENV=production MGECS_VERIFY_CONFIG=true` Vitest config tests passed all 36 cases at 22:27:44 UTC; the actual-environment case executed with no skip, using an isolated token and lightweight health only, with no customer/DB writes. The new production build passed at 22:28:18 UTC. A bounded production-dist process using the real saved configuration confirmed the exact approved published-only origin, listening, static page 200, health 200 and actual managed DB readiness 200 via read-only `SELECT 1`; the probe stopped at 22:29:15 UTC.
+
+This clears approved-origin configuration and demonstrates startup-blocker resolution only, not managed rollout success or real identity acceptance. Managed migration, real OAuth/HTTPS/exact-approved-operator UAT, backup/restore/security and requests remain pending. On resume, re-confirm stored configuration without re-requesting this origin. Complete reviewed migration/account/recovery gates before calling live identity functional. Parent-run precommit/PR/main CI and the external receipt remain separate follow-up evidence; no future IDs are embedded here.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                                  |
@@ -143,7 +153,8 @@ The following receipt-only documentation update must pass its own protected PR/m
 
 | 2026-11-24 | 1.4.0 | Added bounded identity implementation and local tests; retained live-pending state. |
 | 2026-11-24 | 1.5.0 | Appended corrective PR/main/clone, protection, browser and cleanup evidence without erasing failures. |
+| 2026-11-24 | 1.6.0 | Appended approved-origin configuration resolution, actual 36-case validation and bounded startup/readiness evidence while preserving rollout and identity limitations. |
 
 ---
 
-**Document footer — MGECS-REBUILD-EVIDENCE v1.5.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: live identity/configuration/migration and data recovery; external final source receipt.**
+**Document footer — MGECS-REBUILD-EVIDENCE v1.6.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: managed migration, account/recovery gates and external source receipt.**
