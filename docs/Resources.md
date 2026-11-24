@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-REBUILD-RESOURCES
-version: 1.1.0
+version: 1.2.0
 status: active-inventory
 owner: Michael Thomas
 maintainer: Manus AI
@@ -27,6 +27,12 @@ Google Places/Routes and AI are approved directions, not configured/live integra
 
 The pinned GitHub v4 actions currently produce an upstream Node20-to-Node24 deprecation annotation while passing. Review official supported action revisions in Phase 1; do not silently upgrade or waive checks solely to remove an annotation.
 
+## Phase 1 resource state — 2026-11-24
+
+The existing published origin is `https://michaelconci-l64nfwmv.manus.space`; the development origin is `https://3000-ipzieqzej1k3obkrjrs1e-0388ca72.us5.manus.computer`. Approval/configuration of their exact server allowlist is pending; never infer it from request headers. The already approved app signing key stays private and unchanged. Conservative session timeout defaults require no extra paid service.
+
+A finite private MariaDB 10.11.14 runtime was extracted in the sandbox, run unprivileged on loopback only and used exclusively for guarded fixture tests. It is not a purchased VM, hosted product database or persistent service deployment. GitHub's independent MySQL8 integration service uses fixture-only credentials and a generated app key; no managed credentials enter it. Managed user/session fixtures were not inserted and additive live ledger migration is pending. Real operator identity/approval, backup/restore, proxy/edge abuse policy, transport, centralized monitoring and account lifecycle remain unassigned acceptance resources.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                        |
@@ -36,4 +42,4 @@ The pinned GitHub v4 actions currently produce an upstream Node20-to-Node24 depr
 
 ---
 
-**Document footer — MGECS-REBUILD-RESOURCES v1.1.0 | Status: active-inventory | Next review: phase-exit evidence or material change.**
+**Document footer — MGECS-REBUILD-RESOURCES v1.2.0 | Status: active-inventory | Next review: phase-exit evidence or material change.**

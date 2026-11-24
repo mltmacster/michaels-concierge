@@ -20,6 +20,7 @@ export default defineConfig({
       DATABASE_URL: "mysql://127.0.0.1:1/isolated_browser_test",
       JWT_SECRET: randomBytes(32).toString("hex"),
       VITE_APP_ID: "isolated-browser-test",
+      MGECS_APP_ORIGINS: "https://app.example.invalid",
       OAUTH_SERVER_URL: "https://oauth.example.invalid",
       VITE_OAUTH_PORTAL_URL: "https://login.example.invalid",
     },

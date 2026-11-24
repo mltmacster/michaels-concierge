@@ -1,4 +1,6 @@
-export const COOKIE_NAME = "app_session_id";
+export const COOKIE_NAME = "__Host-mgecs_session";
+export const DEV_COOKIE_NAME = "mgecs_session_dev";
+export const DEV_OAUTH_STATE_COOKIE = "oauth_state_dev";
 export const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365;
 export const AXIOS_TIMEOUT_MS = 30_000;
 export const UNAUTHED_ERR_MSG = "Please login (10001)";
@@ -29,7 +31,11 @@ export const decodeOAuthState = (state: string): OAuthState => {
   }
   try {
     const parsed = JSON.parse(decoded);
-    if (parsed && typeof parsed.redirectUri === "string") return parsed;
+    if (parsed && typeof parsed.redirectUri === "string")
+      return {
+        redirectUri: parsed.redirectUri,
+        ...(typeof parsed.nonce === "string" ? { nonce: parsed.nonce } : {}),
+      };
   } catch {
     // Legacy links: `state` was a bare base64(redirectUri) with no nonce.
   }

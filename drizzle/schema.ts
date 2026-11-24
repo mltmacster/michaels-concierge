@@ -1,4 +1,6 @@
 import {
+  bigint,
+  index,
   int,
   mysqlEnum,
   mysqlTable,
@@ -32,4 +34,23 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/** Server-only, hashed session identifiers with UTC millisecond lifecycle data. */
+export const userSessions = mysqlTable(
+  "userSessions",
+  {
+    sessionIdHash: varchar("sessionIdHash", { length: 64 }).primaryKey(),
+    userId: int("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    createdAtMs: bigint("createdAtMs", { mode: "number" }).notNull(),
+    expiresAtMs: bigint("expiresAtMs", { mode: "number" }).notNull(),
+    lastSeenAtMs: bigint("lastSeenAtMs", { mode: "number" }).notNull(),
+    revokedAtMs: bigint("revokedAtMs", { mode: "number" }),
+  },
+  table => [
+    index("userSessions_userId_idx").on(table.userId),
+    index("userSessions_expiry_idx").on(table.expiresAtMs),
+  ]
+);
+
+export type SessionRow = typeof userSessions.$inferSelect;

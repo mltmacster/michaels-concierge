@@ -1,79 +1,116 @@
+import { decodeOAuthState } from "@shared/const";
+import { parse } from "cookie";
+import type { Express } from "express";
+import { timingSafeEqual } from "node:crypto";
+import { z } from "zod";
+import { saveOAuthIdentity } from "../db";
+import { identityService } from "../security/identityService";
+import { validCallback } from "../security/requestPolicy";
+import { IdentityStorageUnavailable, securityEvent } from "../security/events";
 import {
-  COOKIE_NAME,
-  ONE_YEAR_MS,
-  OAUTH_STATE_COOKIE,
-  decodeOAuthState,
-} from "@shared/const";
-import { parse as parseCookieHeader } from "cookie";
-import type { Express, Request, Response } from "express";
-import * as db from "../db";
-import { getSessionCookieOptions } from "./cookies";
+  getSessionCookieOptions,
+  sessionCookieName,
+  stateCookieName,
+} from "./cookies";
 import { sdk } from "./sdk";
 
-function getQueryParam(req: Request, key: string): string | undefined {
-  const value = req.query[key];
-  return typeof value === "string" ? value : undefined;
-}
+const providerIdentity = z.object({
+  openId: z.string().min(1).max(64),
+  projectId: z.string().min(1),
+  name: z.string().max(500).nullish(),
+  email: z.string().max(320).nullish(),
+  loginMethod: z.string().max(64).nullish(),
+  platform: z.string().max(64).nullish(),
+});
 
-export function registerOAuthRoutes(app: Express) {
-  app.get("/api/oauth/callback", async (req: Request, res: Response) => {
-    const code = getQueryParam(req, "code");
-    const state = getQueryParam(req, "state");
-
-    if (!code || !state) {
-      res.status(400).json({ error: "code and state are required" });
+export function registerOAuthRoutes(app: Express, origins: readonly string[]) {
+  app.get("/api/oauth/callback", async (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    const code = typeof req.query.code === "string" ? req.query.code : "";
+    const state = typeof req.query.state === "string" ? req.query.state : "";
+    if (!code || !state || code.length > 4096 || state.length > 4096) {
+      res.status(400).json({
+        error: {
+          code: "OAUTH_REQUEST_INVALID",
+          message: "Invalid sign-in request",
+        },
+      });
       return;
     }
-
-    // CSRF guard: the nonce in `state` must match the one-time cookie that
-    // startLogin set in the browser that began this login. An attacker can
-    // forge `state`, but cannot plant this cookie in the victim's browser.
-    const { nonce } = decodeOAuthState(state);
-    const expectedNonce = parseCookieHeader(req.headers.cookie ?? "")[
-      OAUTH_STATE_COOKIE
-    ];
-    if (!nonce || nonce !== expectedNonce) {
-      res.status(403).json({ error: "invalid oauth state" });
+    const decoded = decodeOAuthState(state);
+    const expected =
+      parse(req.headers.cookie ?? "")[stateCookieName(req)] ?? "";
+    if (
+      !decoded.nonce ||
+      !/^[A-Za-z0-9_-]{20,128}$/.test(decoded.nonce) ||
+      !/^[A-Za-z0-9_-]{20,128}$/.test(expected) ||
+      decoded.nonce.length !== expected.length ||
+      !timingSafeEqual(Buffer.from(decoded.nonce), Buffer.from(expected)) ||
+      !validCallback(decoded.redirectUri, origins)
+    ) {
+      securityEvent(
+        "oauth.state_rejected",
+        String(res.getHeader("X-Request-ID") ?? "")
+      );
+      res.status(403).json({
+        error: {
+          code: "OAUTH_STATE_INVALID",
+          message:
+            "Sign-in could not be verified. Open the app directly, allow cookies and try again.",
+        },
+      });
       return;
     }
-    res.clearCookie(OAUTH_STATE_COOKIE, {
+    res.clearCookie(stateCookieName(req), {
       path: "/",
-      secure: true,
-      sameSite: "none",
+      secure: getSessionCookieOptions(req).secure,
+      sameSite: "lax",
     });
-
     try {
       const tokenResponse = await sdk.exchangeCodeForToken(code, state);
-      const userInfo = await sdk.getUserInfo(tokenResponse.accessToken);
-
-      if (!userInfo.openId) {
-        res.status(400).json({ error: "openId missing from user info" });
-        return;
-      }
-
-      await db.upsertUser({
-        openId: userInfo.openId,
-        name: userInfo.name || null,
-        email: userInfo.email ?? null,
-        loginMethod: userInfo.loginMethod ?? userInfo.platform ?? null,
-        lastSignedIn: new Date(),
+      if (
+        typeof tokenResponse.accessToken !== "string" ||
+        !tokenResponse.accessToken
+      )
+        throw new Error("Invalid provider exchange");
+      const info = providerIdentity.parse(
+        await sdk.getUserInfo(tokenResponse.accessToken)
+      );
+      if (info.projectId !== process.env.VITE_APP_ID)
+        throw new Error("Invalid provider audience");
+      const user = await saveOAuthIdentity({
+        openId: info.openId,
+        name: info.name ?? null,
+        email: info.email ?? null,
+        loginMethod: info.loginMethod ?? info.platform ?? null,
       });
-
-      const sessionToken = await sdk.createSessionToken(userInfo.openId, {
-        name: userInfo.name || "",
-        expiresInMs: ONE_YEAR_MS,
+      const sessions = identityService();
+      // Reauthentication never reuses an existing browser session identifier.
+      await sessions.revoke(
+        parse(req.headers.cookie ?? "")[sessionCookieName(req)]
+      );
+      const session = await sessions.start(user);
+      res.cookie(sessionCookieName(req), session.token, {
+        ...getSessionCookieOptions(req),
+        maxAge: Math.max(0, session.expiresAtMs - Date.now()),
       });
-
-      const cookieOptions = getSessionCookieOptions(req);
-      res.cookie(COOKIE_NAME, sessionToken, {
-        ...cookieOptions,
-        maxAge: ONE_YEAR_MS,
-      });
-
-      res.redirect(302, "/");
+      securityEvent(
+        "oauth.session_created",
+        String(res.getHeader("X-Request-ID") ?? "")
+      );
+      res.redirect(302, "/identity");
     } catch (error) {
-      console.error("[OAuth] Callback failed", error);
-      res.status(500).json({ error: "OAuth callback failed" });
+      const unavailable = error instanceof IdentityStorageUnavailable;
+      securityEvent(
+        unavailable ? "identity.storage_unavailable" : "oauth.callback_failed",
+        String(res.getHeader("X-Request-ID") ?? "")
+      );
+      res.status(unavailable ? 503 : 502).json({
+        error: {
+          code: unavailable ? "IDENTITY_UNAVAILABLE" : "OAUTH_UNAVAILABLE",
+          message: "Sign-in could not be completed. Please try again.",
+        },
+      });
     }
   });
 }

@@ -7,7 +7,10 @@ async function startServer() {
   const config = loadRuntimeConfig(process.env);
   const { createApp } = await import("../app");
   const { serveStatic, setupVite } = await import("./vite");
-  const app = createApp({ production: config.NODE_ENV === "production" });
+  const app = createApp({
+    production: config.NODE_ENV === "production",
+    origins: config.appOrigins,
+  });
   const server = createServer(app);
   if (config.NODE_ENV === "development") {
     await setupVite(app, server);

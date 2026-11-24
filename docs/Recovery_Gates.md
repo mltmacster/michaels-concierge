@@ -1,7 +1,7 @@
 ---
 document_id: MGECS-REBUILD-GATES
-version: 1.0.0
-status: approved-phase0-later-phases-planned
+version: 1.1.0
+status: phase1-development-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
@@ -27,6 +27,10 @@ Phase 6 introduces Stripe membership or approved service fees only after pricing
 
 Commercial launch requires the actual customer/operator flow, privacy/terms, defined service area/hours/capacity, support and escalation owner, working payments where sold, provider boundaries, monitored deployment and acceptance. Pricing must cover staff effort, service costs, payment fees and acquisition; demand and profit remain unproven. No invented revenue forecast or 24/7 promise.
 
+## Phase 1 identity subgate — 2026-11-24
+
+Identity/security source, denied-access/outage contracts, a reviewed additive ledger and guarded SQL/browser tests are implemented as described in [Identity_Runbook.md](Identity_Runbook.md). This is not completion of the whole Phase 1 data gate: exact managed origin configuration/migration, actual permitted-account customer/operator UAT, backup/restore and remaining release-security policies must still be observed. Keep request UI, notifications, provider/AI and billing disabled until the relevant gates pass. The published foundation remains separate from development source promotion.
+
 ## Change log
 
 | Date       | Version | Change                                   |
@@ -35,4 +39,4 @@ Commercial launch requires the actual customer/operator flow, privacy/terms, def
 
 ---
 
-**Document footer — MGECS-REBUILD-GATES v1.0.0 | Status: approved-phase0-later-phases-planned | Next review: phase-exit evidence or material change.**
+**Document footer — MGECS-REBUILD-GATES v1.1.0 | Status: phase1-development-acceptance-pending | Next review: phase-exit evidence or material change.**

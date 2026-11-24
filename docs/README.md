@@ -1,6 +1,6 @@
 ---
 document_id: MGECS-REBUILD-DOCS
-version: 1.0.0
+version: 1.1.0
 status: active
 owner: Michael Thomas
 maintainer: Manus AI
@@ -24,6 +24,10 @@ Required read order:
 
 Documents use YAML IDs, versions, owners, status and append protocol with matching footers. Keep planned, implemented, verified and validated states distinct. Check local links using `pnpm docs:check`; this does not verify external services or customer workflows.
 
+## Current identity read order — 2026-11-24
+
+After the handoff, read [Phase1_Identity_Security.md](Phase1_Identity_Security.md) and [Identity_Runbook.md](Identity_Runbook.md). They supply the current bounded product/design, technical, schema, API, hook, deployment, post-mortem and next-agent briefing contracts. Historical nine prototype documents remain discovery evidence, not instructions for the new stack. Live migration/config/real-account/data recovery acceptance is separate from source/fixture verification.
+
 ## Change log
 
 | Date       | Version | Change                                   |
@@ -32,4 +36,4 @@ Documents use YAML IDs, versions, owners, status and append protocol with matchi
 
 ---
 
-**Document footer — MGECS-REBUILD-DOCS v1.0.0 | Status: active | Next review: phase-exit evidence or material change.**
+**Document footer — MGECS-REBUILD-DOCS v1.1.0 | Status: active | Next review: phase-exit evidence or material change.**
