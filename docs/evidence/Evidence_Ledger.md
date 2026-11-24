@@ -29,6 +29,20 @@ Append exact commands, source commit, timestamp, environment, outcome, artifact/
 
 Final format/lint/type/doc/test/build/security/browser/clean-clone results, public CI and its intentional failure canary, protected main and baseline tag, and artifact delivery must be appended before Phase 0 is called complete.
 
+## Verified Phase 0 checks — 2026-11-24
+
+P0-EV-005: `pnpm verify` passed locally: formatting, zero-warning lint, strict types including tests/configuration, 10-document integrity, 22 unit/HTTP tests, client/server build and isolated production smoke. `pnpm test:browser` passed 3 desktop/mobile/error-state checks. Source snapshot scan passed. Full-history Gitleaks passed on 2 commits after forcing medium Git log formatting; the initial zero-commit scanner result was insufficient and not accepted as history proof.
+
+P0-EV-006: An independent GitHub clone of baseline `ab232288ac276594b6b245be26b2e2dd16affa0e` installed with `--frozen-lockfile` and passed verify/browser/audit with a cleared environment and no application credentials. This validates clean onboarding at that baseline, not customer login/persistence.
+
+P0-EV-007: Public GitHub repository creation and main protection were verified. Main requires the `quality` check, up-to-date branches, pull requests and resolved conversations; admins cannot bypass it and force pushes/deletions are disabled. The initial public CI run failed because packageManager and action config both declared a pnpm version. Corrected by using packageManager as the single version source, not bypassing the setup step. Failed run: https://github.com/mltmacster/michaels-concierge/actions/runs/45454429204 .
+
+P0-EV-008: The deliberate test-only canary failed in public CI at the expected assertion, while all 22 foundation tests passed. The failure proves the test gate blocks broken code. The canary is removed in a superseding revision, not weakened. Failed run: https://github.com/mltmacster/michaels-concierge/actions/runs/45454729231 ; PR: https://github.com/mltmacster/michaels-concierge/pull/1 .
+
+P0-EV-009: After dependency updates and Drizzle 0.45.4, the production audit reported zero high/critical/moderate findings and one low KaTeX advisory (GHSA-238p-pmpm-9mq7). The low-severity item remains visible for Phase 1 review; the unused rich-content component is not exposed on foundation pages. Node container base was pinned to a verified multi-platform registry digest. No security-audit completeness claim is made.
+
+Final corrected-commit CI/container/artifact evidence remains pending and must be appended after completion.
+
 ## Change log
 
 | Date       | Version | Change                                   |
