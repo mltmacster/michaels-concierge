@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-REBUILD-HANDOFF
-version: 1.6.0
+version: 1.7.0
 status: phase1-source-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-24
+updated: 2026-11-25
 append_protocol: append dated decisions and evidence; preserve superseded records
 ---
 
@@ -127,6 +127,45 @@ P1-EV-015 — Actual `NODE_ENV=production MGECS_VERIFY_CONFIG=true` Vitest confi
 
 This clears approved-origin configuration and demonstrates startup-blocker resolution only, not managed rollout success or real identity acceptance. Managed migration, real OAuth/HTTPS/exact-approved-operator UAT, backup/restore/security acceptance and requests remain pending. On resumption, re-confirm stored configuration without requesting this origin again; complete reviewed migration, account and recovery gates before calling live identity functional. Parent-run precommit/PR/main CI and the external source/checkpoint receipt remain separate follow-up evidence.
 
+## Phase 1 continuation — 2026-11-25, v1.7.0
+
+Michael requested continuation of Phase 1, beginning with this handoff. Identity/security implementation is already delivered; do not rebuild it or start Phase 2 request workflows. Continue the managed migration, recovery and permitted-account acceptance gates described in [docs/Identity_Runbook.md](docs/Identity_Runbook.md).
+
+### Re-established baseline
+
+- The workspace resumed clean on `main`, source `2309ae13854f5704dac61fbe78a968b200b78c48`, tree `75b7e664a55755c86c14d6d8169ea607a3ca805b`. The managed environment reports checkpoint `2309ae13`; its development service is running. These are observed baseline identifiers, not identifiers for this new documentation work.
+- Public repository/main and exact [CI 45502249693](https://github.com/mltmacster/michaels-concierge/actions/runs/45502249693) were rechecked: `quality` and `identity-database` succeeded. The earlier configuration receipt PR #14 is merged. That historical main CI does not validate new changes.
+- The newly rerun portable suite passed 323 cases with exactly one opt-in actual-environment case skipped. A separate actual production configuration run passed all 36 cases, with the opt-in case executed and no skip. The exact published-only allowlist was checked without printing keys or changing configuration.
+- Public HTTPS `/api/health` and `/api/ready` returned 200. This confirms public liveness and read-only database reachability. A preceding platform notification reported successful rollout; neither that report nor these probes independently establishes deployed backend-source identity, managed ledger readiness or real OAuth/operator acceptance.
+- Fresh managed read-only inventory now shows **one account, zero operators, one runtime migration entry and no `userSessions` table**. This supersedes historical zero-account counts. No personal account fields were retrieved and no account/session/role/schema write was made during this continuation. Preserve the existing account; do not treat the managed database as an empty disposable target.
+- The managed server reports TiDB v8.5.3 serverless/MySQL compatibility and InnoDB for `users`; `users.id` is signed `int`, `openId` has the existing unique `utf8mb4_unicode_ci` contract, and roles remain `user`/`admin`. Exact live dialect/FK/journal behavior still requires migration and recovery acceptance.
+
+### Origin documentation correction
+
+The approved and actually saved origin is **`https://michaelconci-l64nfwmv.manus.space`**. The v1.6 handoff/README/evidence historical prose omitted the final `v` in the host; that is a documentation typo, not a different approved setting. [docs/Resources.md](docs/Resources.md) and the external configuration receipt recorded the correct origin. Keep the earlier text as history with this explicit correction. The actual configuration still contains only the correct published origin; the development preview remains excluded. No new approval or signing-key rotation is needed for that unchanged setting.
+
+### Exact next work and safety boundary
+
+Follow [docs/Phase1_Migration_Recovery.md](docs/Phase1_Migration_Recovery.md) for the current migration/journal and recovery contract.
+
+1. Finalize current target/journal compatibility and a recoverable private backup procedure before managed DDL. Independently reviewed `drizzle/0001_mature_vindicator.sql` adds only the session ledger, its user FK and two indexes; SHA-256 `eb3eab3601989e238f639a25dd96f3e0258d60078e2762b7760068f24e62d567`. It does not seed, alter existing users or grant roles. Use an approved migration runner so the runtime journal and physical schema remain consistent; do not manually invent journal entries or use shared `db:push`.
+2. Rehearse incremental application over an existing users/Phase 0 journal baseline, partial-DDL detection, isolated backup/restore and restored-session invalidation. Prior 20 disposable persistence cases are real but do not prove this incremental/recovery gate. MySQL DDL may commit partially; do not promise transaction rollback or blindly rerun non-idempotent statements.
+3. Obtain approval for the exact managed migration only after backup/rehearsal prerequisites pass. Preserve the existing account and aggregate roles; verify every resulting column/FK/index, empty ledger and runtime journal afterward. A source checkpoint is not a database backup.
+4. Then complete permitted real-account HTTPS OAuth/self-profile/logout/replay and privately verified exact-account operator approval. No operator grant is authorized by a client label, owner variable or this general continuation request.
+5. Before reopening after any database restore, invalidate restored sessions and reconcile subsequent demotions/deletions; a backup can resurrect a previously revoked session or old role. Keep signing-key rotation an explicit incident/recovery choice, not a routine migration step. Complete recovery/security operating acceptance before customer requests or billing.
+
+This update starts the continuation with factual handoff state. New full verification, browser/security checks, protected PR/main evidence and any final source-only checkpoint must be recorded after observation. No migration, account provisioning, operator grant, configuration expansion or publication is implied.
+
+### Completed isolated recovery rehearsal — 2026-11-25, 22:37 UTC
+
+The new finite MariaDB 10.11.14 rehearsal passed actual incremental Drizzle migration over one synthetic existing customer/Phase 0 journal, preserving profile/role/timestamps and producing the exact six-column ledger, one primary key, two indexes, one FK and two correct journal entries. A second migrator run preserved data/schema/journal with no duplicates. Unmodified codec/service logic authenticated a hash-ledger session through a local SQL adapter.
+
+A real private logical backup of users/ledger/journal was restored into a separate freshly guarded target. The stale restore actually resurrected one active session and one prior admin role; the old token authenticated. Atomic reconciliation revoked that restored session and restored the later demotion: zero active sessions/admins and replay denied. A third fresh schema with only the first ledger CREATE was correctly detected as partial: no FK/indexes/Phase 1 journal; completion and blind rerun were refused. Three earlier helper attempts failed on SQL-vs-JavaScript table ordering, then exact order-independent set comparison corrected the helper without relaxing column/FK/index/journal assertions.
+
+The owned engine stopped with bounded SIGTERM; port 3307 has no listener. All fixture data, generated credential files and the raw backup were deleted; sanitized receipts/runner remain private. This is new disposable MariaDB migration/recovery evidence, not managed TiDB restore, real OAuth/HTTPS/operator UAT, physical-restart evidence or permission for live blanket revocation. The managed FK variable was read-only verified ON; actual migrated FK behavior remains a postcondition.
+
+**Next gate now:** preserve a verified private backup of the existing managed account/journal, obtain approval for only the exact reviewed additive migration, then validate managed metadata/journal and permitted-account HTTPS flows. Do not repeat completed source development or call the whole Phase 1 accepted. The earlier numbered rehearsal step is satisfied only within this isolated scope; live backup/migration/identity and operating acceptance remain pending.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                            |
@@ -139,7 +178,8 @@ This clears approved-origin configuration and demonstrates startup-blocker resol
 | 2026-11-24 | 1.4.0 | Added bounded identity implementation and local tests; retained live-pending state. |
 | 2026-11-24 | 1.5.0 | Appended corrective PR/main/clone, protection, browser and cleanup evidence without erasing failures. |
 | 2026-11-24 | 1.6.0 | Resolved approved-origin configuration with actual 36-case validation and bounded startup/readiness evidence; rollout, identity, migration and recovery gates remain pending. |
+| 2026-11-25 | 1.7.0 | Resumed Phase 1 from exact source/CI; corrected historical origin prose; recorded public probes, current one-account/no-ledger inventory and recovery-before-migration gates. |
 
 ---
 
-**Document footer — MGECS-REBUILD-HANDOFF v1.6.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: managed migration, account/recovery gates and external source receipt.**
+**Document footer — MGECS-REBUILD-HANDOFF v1.7.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: verified private managed backup, exact migration approval and permitted-account acceptance.**

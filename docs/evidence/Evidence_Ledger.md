@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-REBUILD-EVIDENCE
-version: 1.6.0
+version: 1.7.0
 status: phase1-source-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-24
+updated: 2026-11-25
 append_protocol: append dated decisions and evidence; preserve superseded records
 ---
 
@@ -142,6 +142,22 @@ P1-EV-015 — `NODE_ENV=production MGECS_VERIFY_CONFIG=true` Vitest config tests
 
 This clears approved-origin configuration and demonstrates startup-blocker resolution only, not managed rollout success or real identity acceptance. Managed migration, real OAuth/HTTPS/exact-approved-operator UAT, backup/restore/security and requests remain pending. On resume, re-confirm stored configuration without re-requesting this origin. Complete reviewed migration/account/recovery gates before calling live identity functional. Parent-run precommit/PR/main CI and the external receipt remain separate follow-up evidence; no future IDs are embedded here.
 
+## Phase 1 continuation — 2026-11-25, v1.7.0
+
+P1-EV-016 — At resumption the workspace was clean `main` at `2309ae13854f5704dac61fbe78a968b200b78c48`, tree `75b7e664a55755c86c14d6d8169ea607a3ca805b`; managed status reported `2309ae13` and a running development service. Public main and [CI 45502249693](https://github.com/mltmacster/michaels-concierge/actions/runs/45502249693) were rechecked, both required jobs successful. This historical exact-main check does not validate new handoff/document changes. At 22:27 UTC the portable suite reran: 323 passed, one opt-in actual-config case skipped. A separate production-config run passed all 36 cases with no skip and checked the exact saved published-only allowlist without changing or printing keys.
+
+P1-EV-017 — At 22:27 UTC anonymous public HTTPS health/readiness probes returned 200, foundation/ready. The platform previously reported rollout success, but deployed backend-source identity and live account acceptance were not inferred. Fresh managed read-only aggregate: one account, zero operators, one migration entry and absent `userSessions`. Subsequent metadata identified TiDB v8.5.3/InnoDB, signed `users.id` and existing provider-key/role contract. Runtime Phase 0 journal hash/timestamp match the tracked migration. No personal profile fields, fixtures, role changes or DDL were accessed/written. Current one-account inventory supersedes historical zero-account counts. `SELECT 1` still is not ledger readiness.
+
+P1-EV-018 — Independent read-only review confirmed the exact additive ledger SQL/hash, runtime-journal/partial-DDL caveats and recovery gaps. A restored old ledger can erase later revocation; restored users can erase demotion/deletion. The new [migration/recovery runbook](../Phase1_Migration_Recovery.md) requires restored-session invalidation and role/deletion reconciliation before reopening. The correct actual approved origin is `https://michaelconci-l64nfwmv.manus.space`; v1.6 handoff/README/evidence prose omitted the final `v`, while Resources and the external receipt were correct. This correction did not change configuration. Incremental/backup-restore rehearsal is a separate in-progress proof, not yet marked passed here.
+
+The initial handoff update passed full verify, cold strict types, production build/smoke, all 25 browser tests, audit and diff checks; audit remains one low finding, no high/critical/moderate. Later documentation additions require their own final verification and protected PR/main receipts. Managed backup, exact migration approval/application, real OAuth/HTTPS/operator and operating-security acceptance remain pending; no customer request capability is enabled.
+
+P1-EV-019 — At 22:37:19–22:37:22 UTC a fresh isolated MariaDB10.11.14 rehearsal passed: actual Drizzle incremental migration preserved one synthetic existing Phase 0 customer; exact ledger/FK/indexes and two correct journal entries; safe migrator rerun made no duplicate/data/schema change; unmodified codec/service with local SQL adapter authenticated one hashed-ledger session. Real private logical users/ledger/journal backup/restore used a separately guarded target. The stale snapshot actually resurrected one active session and one admin; atomic restored-session revocation/post-backup role reconciliation produced zero active sessions/admins, replay denial and preserved demotion. A third schema with only first ledger CREATE was detected incomplete (no FK/two indexes/Phase 1 journal), with no blind rerun/reset/DROP.
+
+Authoritative sanitized private receipt: `/home/ubuntu/mgecs-phase1-private-evidence/independent-completion-wwjgh6ur/proof.json`, with retained runner/progress/failure/cleanup records. Three earlier fresh helper attempts failed on SQL-vs-JavaScript table ordering; exact order-independent comparison corrected the helper, preserving all metadata/security assertions. Every owned engine stopped by bounded SIGTERM, port3307 is closed, and fixture data/password/raw backup were deleted. No actual application/managed record, Git/CI/config or key was changed by that rehearsal. It did not rerun the full 20-case integration suite or prove managed TiDB/provider/HTTPS/operator/physical-restart acceptance. Migration hash remains `eb3eab3601989e238f639a25dd96f3e0258d60078e2762b7760068f24e62d567`. A separate read-only managed query verified `tidb_enable_foreign_key=ON`; no setting was changed.
+
+This satisfies the newly scoped isolated incremental/recovery procedure, not live backup/migration or Phase 1 completion. The exact next gate is verified private managed backup and approved additive migration, then managed metadata/journal/account acceptance. Final source checks/PR/main/checkpoint receipts remain separate observations.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                                  |
@@ -154,7 +170,8 @@ This clears approved-origin configuration and demonstrates startup-blocker resol
 | 2026-11-24 | 1.4.0 | Added bounded identity implementation and local tests; retained live-pending state. |
 | 2026-11-24 | 1.5.0 | Appended corrective PR/main/clone, protection, browser and cleanup evidence without erasing failures. |
 | 2026-11-24 | 1.6.0 | Appended approved-origin configuration resolution, actual 36-case validation and bounded startup/readiness evidence while preserving rollout and identity limitations. |
+| 2026-11-25 | 1.7.0 | Appended exact resumption/source/CI/config/probe evidence, current existing-account baseline, historical origin correction and secure migration/recovery review. |
 
 ---
 
-**Document footer — MGECS-REBUILD-EVIDENCE v1.6.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: managed migration, account/recovery gates and external source receipt.**
+**Document footer — MGECS-REBUILD-EVIDENCE v1.7.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: incremental migration/recovery proof, final source gates and exact managed approval.**

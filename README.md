@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-REBUILD-README
-version: 1.6.0
+version: 1.7.0
 status: phase1-source-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-24
+updated: 2026-11-25
 append_protocol: append dated changes and evidence; preserve superseded claims
 ---
 
@@ -153,6 +153,16 @@ Following reauthorization at 22:27:04 UTC, managed configuration confirmed `MGEC
 
 This resolves the approved-origin startup blocker only, not managed rollout success or real identity acceptance. Managed migration, real OAuth/HTTPS/exact-approved-operator UAT, backup/restore/security acceptance and requests remain pending. On resume, re-confirm stored configuration rather than requesting this origin again; finish reviewed migration, account and recovery gates before describing live identity as functional. Parent-run precommit/PR/main CI and the external source/checkpoint receipt remain separate follow-up evidence.
 
+## Phase 1 continuation — 2026-11-25, v1.7.0
+
+Phase 1 identity/security source is already implemented; continuation starts with [HANDOFF.md](HANDOFF.md) and the [migration/recovery runbook](docs/Phase1_Migration_Recovery.md), not a duplicate rebuild or request dashboard. Source `2309ae13854f5704dac61fbe78a968b200b78c48`, managed checkpoint `2309ae13` and both exact-main CI jobs were rechecked. Current public HTTPS health/readiness returned 200, and the platform previously reported rollout success. These observations do not independently prove deployed backend-source identity or customer/operator acceptance.
+
+The correct approved origin is `https://michaelconci-l64nfwmv.manus.space`; historical v1.6 prose omitted the final `v`. The actual saved allowlist was rechecked as published-only and remains unchanged. The new production-configuration run passed all 36 cases with no skip; 323 portable cases passed with the separate actual-env case skipped by default. Full verification and 25 browser checks passed for the first handoff update; subsequent documentation needs its own final gates.
+
+Managed read-only inventory now has one customer account, no operators, one migration entry and no session ledger. Preserve that account. Complete verified private backup, incremental migration/secure restore rehearsal and exact managed migration approval, then real permitted-account HTTPS identity/logout/replay and separately approved operator acceptance. An older restore can resurrect revoked sessions or stale roles; invalidate restored sessions and reconcile role/deletion decisions before reopening. No managed migration, role grant, key change, concierge workflow or customer launch is implied.
+
+The subsequent isolated MariaDB rehearsal passed actual incremental migration, unchanged migrator rerun, private logical backup/restore, stale-session/role risk demonstration, secure reopening and partial-DDL detection. Fixture data/raw backup and the owned test engine were cleaned. The current next gate is a verified private **managed** backup and approval for the exact additive ledger migration; the isolated result does not establish TiDB/live identity acceptance. See the latest handoff and recovery runbook for the scoped receipt and failures/corrections.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                              |
@@ -165,7 +175,8 @@ This resolves the approved-origin startup blocker only, not managed rollout succ
 | 2026-11-24 | 1.4.0 | Documented bounded identity controls and pending live configuration/migration acceptance. |
 | 2026-11-24 | 1.5.0 | Appended verified implementation PR/main/clone and explicit source-only delivery boundary. |
 | 2026-11-24 | 1.6.0 | Documented approved-origin configuration resolution, actual 36-case validation and bounded readiness proof without claiming rollout or live identity acceptance. |
+| 2026-11-25 | 1.7.0 | Added current Phase 1 continuation state, corrected historical origin prose and linked migration/secure recovery-before-activation gates. |
 
 ---
 
-**Document footer — MGECS-REBUILD-README v1.6.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: managed migration, account/recovery gates and external source receipt.**
+**Document footer — MGECS-REBUILD-README v1.7.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: incremental migration/recovery, exact managed approval and permitted-account acceptance.**
