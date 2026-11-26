@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-IDENTITY-RUNBOOK
-version: 1.1.0
-status: development-controls-live-acceptance-pending
+version: 1.2.0
+status: managed-ledger-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-24
+updated: 2026-11-26
 append_protocol: append dated approvals, migration receipts, failures and acceptance evidence; never include credentials or personal records
 ---
 
@@ -73,13 +73,22 @@ Source rollback is not database restore. An additive empty ledger can remain whi
 
 Read [../HANDOFF.md](../HANDOFF.md), the latest [evidence ledger](evidence/Evidence_Ledger.md) and this runbook. Confirm current source/checkpoint/CI, origin configuration and whether the managed ledger was actually migrated. Do not infer any of those from a passing local test. Complete named-account OAuth/operator acceptance and Phase 1 data recovery gates before request UI or paid capability. Preserve historical failures and append exact corrective evidence.
 
+## Managed backup and migration — 2026-11-26, v1.2.0
+
+Historical pending migration/backup statements are superseded within this bounded gate by [Phase1_Migration_Recovery.md](Phase1_Migration_Recovery.md). On source `7ecf541c55e3ca374c1a0030ba8d5c360231ba8c`, the approved consistent actual backup was retained privately, downloaded checksum-verified and recovered in fresh isolated MariaDB before the unchanged actual Drizzle migration. Managed read-only verification now confirms one preserved customer/zero operators, empty six-column ledger, correct named FK/CASCADE/NO ACTION and two runtime journal entries. The two approved named indexes coexist with TiDB's documented automatic same-name FK-support index; no DDL was rerun/dropped to remove it.
+
+FK enforcement acceptance here is enabled exact-engine/native/reference/rule metadata; ENFORCED is not exposed and no synthetic managed FK insert/delete occurred. Logical isolated recovery is not live TiDB recovery. The 120-day owner-private backup retention review/exact-object Trash instruction is scheduled after March 26, 2027 expiry, with native owner confirmation potentially required; it does not implement ledger-row cleanup, recurring backup coverage or hard automatic deletion.
+
+The saved published-only origin and signing key are unchanged. No customer session was issued, no user/profile/role DML was performed and no operator was granted. Verify exact deployed backend-source identity, actual permitted HTTPS OAuth/cookie/return navigation, own-profile ownership, durable logout and replay rejection next; obtain a separate exact verified-account approval for any operator. Operating security/MFA/proxy/CSP/monitoring and secure post-restore reconciliation remain open. Do not start Phase 2 or describe metadata/health as live identity acceptance.
+
 ## Change log
 
-| Date       | Version | Change                                                                                   |
-| ---------- | ------- | ---------------------------------------------------------------------------------------- |
-| 2026-11-24 | 1.0.0   | Established the bounded identity/schema/API/hook/deployment and recovery contract.       |
-| 2026-11-24 | 1.1.0   | Clarified verified source-only checkpoints versus separately gated production promotion. |
+| Date       | Version | Change                                                                                                |
+| ---------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| 2026-11-24 | 1.0.0   | Established the bounded identity/schema/API/hook/deployment and recovery contract.                    |
+| 2026-11-24 | 1.1.0   | Clarified verified source-only checkpoints versus separately gated production promotion.              |
+| 2026-11-26 | 1.2.0   | Linked verified managed ledger/recovery outcomes and retained separate HTTPS/operator/operating gates |
 
 ---
 
-**Document footer — MGECS-IDENTITY-RUNBOOK v1.1.0 | Status: development-controls-live-acceptance-pending | Next review: managed configuration/migration and actual permitted-account acceptance.**
+**Document footer — MGECS-IDENTITY-RUNBOOK v1.2.0 | Status: managed-ledger-verified-live-acceptance-pending | Next review: exact deployed-source and permitted-account HTTPS acceptance.**

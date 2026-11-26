@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-REBUILD-DOCS
-version: 1.2.0
+version: 1.3.0
 status: active
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-25
+updated: 2026-11-26
 append_protocol: append dated decisions and evidence; preserve superseded records
 ---
 
@@ -30,13 +30,18 @@ After the handoff, read [Phase1_Identity_Security.md](Phase1_Identity_Security.m
 
 For the 2026-11-25 continuation, read [Phase1_Migration_Recovery.md](Phase1_Migration_Recovery.md) next. It binds the current existing-account/journal baseline, exact additive migration and backup/restore security boundary. Do not mistake historical empty-database tests or public health for incremental managed migration and live identity acceptance.
 
+## Managed backup and migration — 2026-11-26
+
+[../HANDOFF.md](../HANDOFF.md) v1.8 and [Phase1_Migration_Recovery.md](Phase1_Migration_Recovery.md) v1.1 record the approved owner-private actual backup, downloaded-copy isolated recovery, unchanged managed ledger migration, TiDB automatic FK-support index and final read-only postconditions. [Identity_Runbook.md](Identity_Runbook.md) v1.2 keeps deployed-source/real HTTPS identity, exact operator approval and operating security as separate next gates. The ledger remains empty with the existing customer preserved; do not repeat DDL or start Phase 2. Private backup data and destination IDs are not documentation artifacts.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                     |
 | ---------- | ------- | ---------------------------------------------------------------------------------------------------------- |
 | 2026-11-24 | 1.0.0   | Established the approved Phase 0 record.                                                                   |
 | 2026-11-25 | 1.2.0   | Linked the current Phase 1 migration/recovery continuation and its existing-account preservation boundary. |
+| 2026-11-26 | 1.3.0   | Indexed verified managed backup/ledger outcomes and remaining live identity gates                          |
 
 ---
 
-**Document footer — MGECS-REBUILD-DOCS v1.2.0 | Status: active | Next review: phase-exit evidence or material change.**
+**Document footer — MGECS-REBUILD-DOCS v1.3.0 | Status: active | Next review: phase-exit evidence or material change.**

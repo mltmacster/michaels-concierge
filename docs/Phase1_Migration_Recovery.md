@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-PHASE1-MIGRATION-RECOVERY
-version: 1.0.0
-status: preparation-live-execution-pending
+version: 1.1.0
+status: managed-backup-and-ledger-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-25
-updated: 2026-11-25
+updated: 2026-11-26
 append_protocol: append observed rehearsal, backup, approval, statement and recovery receipts; preserve failures and never include personal records or credentials
 ---
 
@@ -84,12 +84,39 @@ Cleanup confirmed the owned engine stopped with SIGTERM, no port-3307 listener, 
 
 The managed TiDB FK variable was read-only verified ON. The next action is a verified private managed backup and exact additive-migration approval, followed by observed managed postconditions and permitted account acceptance. No live schema, role or key change has been authorized or performed here.
 
+## Managed backup and migration — 2026-11-26, v1.1.0
+
+The owner approved the exact unchanged additive migration at 00:35:34 UTC conditional on prerequisites, then private Michael-only Drive custody and 120 days at 12:46:14 UTC. On clean source/checkpoint `7ecf541c55e3ca374c1a0030ba8d5c360231ba8c` / `7ecf541c`, consistent capture, owner-only durable upload/ACL read-back, downloaded checksum and actual isolated recovery passed before managed DDL. See [../HANDOFF.md](../HANDOFF.md) and [evidence/Evidence_Ledger.md](evidence/Evidence_Ledger.md).
+
+### Captured and recovered data scope
+
+The bounded certificate-verified TiDB capture used documented SHOW MASTER STATUS Position as a fixed session tidb_snapshot, UTC, and repeated actual schema/rows under that same snapshot. The 4,373-byte typed JSON contains native users/Phase 0 journal DDL, ordered columns and actual rows, not credentials. The first unavailable timestamp-function attempt stopped before customer capture. One owner-private Drive file and owner-private recovery instructions/reference helper were verified with no public/link/group access. No raw backup or destination ID belongs in public source.
+
+The actual downloaded bytes restored at 12:58:14.946–12:58:16.744 UTC into a fresh guarded MariaDB 10.11.14 target. Six unsafe target inputs were refused; account/server/owned datadir/empty objects were checked. Native captured CREATE statements were executed unchanged (the inert TiDB clustered-index hint was ignored by MariaDB), followed by parameterized rows. Exact saved rows and normalized metadata for both tables passed. Engine/data/log cleanup and closed port3307 were verified. This is actual-backup isolated logical recovery, not live TiDB restore or a provider-native backup; later role/deletion reconciliation remains mandatory.
+
+A JSON-media CLI download unexpectedly echoed customer fields into the owner's private task terminal despite its binary-output flag. The raw saved output was restricted outside app source; no credentials or public GitHub/artifact upload occurred. Supported binary transfer corrected the download and preserved exact SHA-256. Public evidence must acknowledge this handling error without copying the records.
+
+### Applied migration and actual TiDB physical outcome
+
+Actual Drizzle mysql2 migration returned four ordered DDL successes and the approved journal insert at 13:12:48.843–13:12:50.220 UTC; commit succeeded. Live complete users/journal schemas and saved rows were checked twice immediately before DDL. The earlier URL-option guard stop occurred before connection and was corrected to accept only the managed URL's exact certificate-verifying SSL option; two safe/ten unsafe actual-guard tests passed, with TLS retained.
+
+The initial postcheck stopped because TiDB reports four physical index objects, not the three observed in the portable rehearsal: PRIMARY, the approved `userSessions_userId_idx` and `userSessions_expiry_idx`, and `userSessions_userId_users_id_fk` on userId. [TiDB v8.5 documents automatic creation of a same-name child FK index](https://docs.pingcap.com/tidb/v8.5/foreign-key/) when none exists at FK addition. This migration adds its FK before its explicit index; the actual engine retained both. The reviewed SQL/hash is unchanged. Do not reorder its already applied statements, drop indexes, add IF NOT EXISTS or rerun DDL to alter evidence.
+
+A separate read-only postcondition verifier passed at 13:15:26.983–13:15:28.187 UTC. It required exactly that documented four-object index set with exact columns/uniqueness/order/prefix/type; the six correct ledger columns, named FK/reference/CASCADE/NO ACTION, enabled TiDB FK, three native tables/no extra routines/events/triggers, empty ledger, exact unchanged complete customer values/users schema and two correct journal entries. ENFORCED is not exposed by this server; no synthetic managed FK DML was performed. The extra supporting index is retained as an observed redundancy/performance consideration, not an authorization for optimization DDL.
+
+### Retention and remaining recovery/identity acceptance
+
+Retain until `2027-03-26T12:53:28.303Z`. One-shot review/exact-backup-file-and-companion Trash instructions are active for `2027-03-26T12:54:28Z`, confined to the verified owner account/file IDs/checksums, never the parent folder or unrelated files. The native scheduler is ask_user; owner action may be needed. This is not guaranteed automatic expiry, permanent deletion, recurring backup coverage or an assigned RPO/RTO. Continued connector authorization and service availability are necessary.
+
+No live restore, user/profile/role/session DML, key/origin/GC/config change, operator provision or request launch occurred. Preserve stopped/failed receipts. Verify permitted real-account HTTPS identity/logout replay and deployed-source identity next; obtain exact operator approval separately. On any future restore keep identity closed, reconcile later role/deletion decisions and invalidate restored sessions before reopening. Existing source rollback may retain this empty additive ledger; it is not an automatic database rollback.
+
 ## Change log
 
-| UTC date   | Version | Change                                                                                                                 |
-| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-25 | 1.0.0   | Established current managed baseline, exact migration/journal binding and secure recovery-before-activation procedure. |
+| UTC date   | Version | Change                                                                                                                                                |
+| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-25 | 1.0.0   | Established current managed baseline, exact migration/journal binding and secure recovery-before-activation procedure.                                |
+| 2026-11-26 | 1.1.0   | Appended actual private snapshot/recovery and approved managed execution, exact TiDB supporting-index evidence, retention mode and preserved failures |
 
 ---
 
-**Document footer — MGECS-PHASE1-MIGRATION-RECOVERY v1.0.0 | Status: preparation-live-execution-pending | Next review: verified private managed backup and exact additive-migration approval.**
+**Document footer — MGECS-PHASE1-MIGRATION-RECOVERY v1.1.0 | Status: managed-backup-and-ledger-verified-live-acceptance-pending | Next review: real HTTPS identity and separately approved secure restoration.**

@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-REBUILD-README
-version: 1.7.0
-status: phase1-source-verified-live-acceptance-pending
+version: 1.8.0
+status: phase1-managed-ledger-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-25
+updated: 2026-11-26
 append_protocol: append dated changes and evidence; preserve superseded claims
 ---
 
@@ -163,6 +163,16 @@ Managed read-only inventory now has one customer account, no operators, one migr
 
 The subsequent isolated MariaDB rehearsal passed actual incremental migration, unchanged migrator rerun, private logical backup/restore, stale-session/role risk demonstration, secure reopening and partial-DDL detection. Fixture data/raw backup and the owned test engine were cleaned. The current next gate is a verified private **managed** backup and approval for the exact additive ledger migration; the isolated result does not establish TiDB/live identity acceptance. See the latest handoff and recovery runbook for the scoped receipt and failures/corrections.
 
+## Managed backup and migration — 2026-11-26, v1.8.0
+
+This dated record supersedes historical no-ledger/pending-backup statements only for the managed schema/recovery gates. Michael conditionally approved the unchanged additive migration and selected private owner-only Google Drive custody with 120-day retention. The actual consistent users/journal snapshot was uploaded privately, downloaded byte-identically and restored into a fresh restricted MariaDB target with exact private row/schema comparison and verified cleanup. This is logical recovery proof, not a live TiDB restore or service recovery SLA.
+
+The actual Drizzle migrator applied the reviewed four statements and correct journal entry on source `7ecf541c55e3ca374c1a0030ba8d5c360231ba8c`. Managed postconditions preserved the existing customer and users schema, with zero operators, an empty six-column ledger, correct PK/FK/rules and both journal entries. Both approved named indexes exist; TiDB additionally retained its [documented automatically created FK-support index](https://docs.pingcap.com/tidb/v8.5/foreign-key/). The strict initial index-count postcheck was preserved and resolved read-only, without rerunning DDL or dropping the extra index.
+
+Retention review/exact-file Drive Trash cleanup is scheduled after the 120-day boundary on March 26, 2027. Native owner-confirmation mode may require action; no hard automatic deletion or recurring backup service is claimed. Private backup/customer data, destination IDs and recovery-helper files are not source artifacts. The handling failures/corrections and full measured outcomes are in [HANDOFF.md](HANDOFF.md) and the [migration/recovery runbook](docs/Phase1_Migration_Recovery.md).
+
+Actual deployed backend-source identity, real HTTPS OAuth/self-profile/logout replay, exact-account operator approval and operating-security acceptance remain pending. This is not completed Phase 1, a customer launch or permission for Phase 2 requests, providers, AI or billing. This documentation revision needs its own local and protected exact-source delivery gates; prior CI validates the migration source only.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                              |
@@ -176,7 +186,8 @@ The subsequent isolated MariaDB rehearsal passed actual incremental migration, u
 | 2026-11-24 | 1.5.0 | Appended verified implementation PR/main/clone and explicit source-only delivery boundary. |
 | 2026-11-24 | 1.6.0 | Documented approved-origin configuration resolution, actual 36-case validation and bounded readiness proof without claiming rollout or live identity acceptance. |
 | 2026-11-25 | 1.7.0 | Added current Phase 1 continuation state, corrected historical origin prose and linked migration/secure recovery-before-activation gates. |
+| 2026-11-26 | 1.8.0 | Recorded private actual-backup recovery and managed ledger/journal verification with TiDB index and retention limitations |
 
 ---
 
-**Document footer — MGECS-REBUILD-README v1.7.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: incremental migration/recovery, exact managed approval and permitted-account acceptance.**
+**Document footer — MGECS-REBUILD-README v1.8.0 | Status: phase1-managed-ledger-verified-live-acceptance-pending | Next review: permitted-account HTTPS identity and operating acceptance.**
