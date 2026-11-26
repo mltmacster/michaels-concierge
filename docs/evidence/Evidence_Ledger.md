@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-REBUILD-EVIDENCE
-version: 1.7.0
-status: phase1-source-verified-live-acceptance-pending
+version: 1.8.0
+status: phase1-managed-ledger-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-25
+updated: 2026-11-26
 append_protocol: append dated decisions and evidence; preserve superseded records
 ---
 
@@ -158,6 +158,22 @@ Authoritative sanitized private receipt: `/home/ubuntu/mgecs-phase1-private-evid
 
 This satisfies the newly scoped isolated incremental/recovery procedure, not live backup/migration or Phase 1 completion. The exact next gate is verified private managed backup and approved additive migration, then managed metadata/journal/account acceptance. Final source checks/PR/main/checkpoint receipts remain separate observations.
 
+## Managed backup and migration — 2026-11-26, v1.8.0
+
+P1-EV-020 — **Exact migration source and conditional approvals.** Protected [PR #15](https://github.com/mltmacster/michaels-concierge/pull/15) passed [PR CI 45715823415](https://github.com/mltmacster/michaels-concierge/actions/runs/45715823415); merge source `7ecf541c55e3ca374c1a0030ba8d5c360231ba8c` / tree `42c1af0151cbd880f85f1b23aea5fcf6263846f2` passed exact-main [CI 45716030756](https://github.com/mltmacster/michaels-concierge/actions/runs/45716030756), both required jobs, Docker and same-run artifact/checksum/source verification. Source-only checkpoint `7ecf541c` was observed; no publish operation was invoked. Initial zero-byte/zero-commit secret scans were rejected; child-only color correction inspected 28,875 staged bytes and 1,333,967 bytes/10 history commits without findings or global config changes. These historical checks do not validate this later docs revision. Owner approval at 00:35:34 UTC covered only the unchanged additive migration after private prerequisites; custody approval at 12:46:14 UTC specified private Michael-only Drive and 120 days.
+
+P1-EV-021 — **Actual managed backup/custody/recovery: PASS within logical isolated scope.** At 12:53:28.303 UTC, certificate-verified TiDB fixed-TSO capture preserved actual native users/journal schema/rows (one customer/one journal row, ledger absent), repeated both under the same snapshot in UTC, with 4,373 bytes and private SHA-256. Owner-only folder/file/companions ACLs were verified without public/link/group/shared-drive access. The actual downloaded bytes matched the captured hash. At 12:58:14.946–12:58:16.744 UTC they restored in a freshly guarded restricted MariaDB10.11.14 target: six unsafe targets refused, empty owned schema/server/account checked, native CREATE unchanged and bound row inserts, exact two rows/normalized metadata matched. Owned engine/data/logs cleaned and port3307 closed. This is not live TiDB/provider-native restore, physical-restart UAT or an RPO/RTO promise.
+
+P1-EV-022 — **Preserved helper/handling failures and narrow corrections.** The unavailable first snapshot timestamp function stopped before row capture; documented SHOW MASTER STATUS Position fixed capture without global GC change. JSON media download unexpectedly echoed customer fields into the owner's private task terminal instead of its binary file; raw saved output was restricted outside app source, no credentials or public GitHub/artifact upload, and supported binary transfer corrected retained-copy handling. Restore-helper column allowlist, guarded prefix, native safe grammar, bigint type/display-width and no-PII receipt/negative guard/cleanup errors were corrected before actual execution. First migration runner stopped before connection on its strict URL-options guard; corrected exact certificate-verifying SSL option acceptance passed two safe/ten refused synthetic actual-guard cases, with no TLS downgrade. Original stopped receipts remain private; do not claim that no private echo occurred.
+
+P1-EV-023 — **Approved managed application: returned success; initial index-postcheck failed.** At 13:12:48.843–13:12:50.220 UTC actual Drizzle mysql2 migrate returned success for all unchanged four DDL statements and matching Phase1 journal insert; commit succeeded. Complete saved users/journal schema/rows were compared twice immediately before DDL. No user/session/role DML, fixture, key/origin/config/GC change, lock, reset or auto restore occurred. The initial postcheck expected three physical indexes and stopped on TiDB's retained automatic FK index. Actual metadata and [TiDB v8.5 automatic-index documentation](https://docs.pingcap.com/tidb/v8.5/foreign-key/) identified exactly `userSessions_userId_users_id_fk` on userId, alongside the two approved indexes and PRIMARY. No DDL was replayed or index dropped.
+
+P1-EV-024 — **Read-only final managed postconditions: PASS.** At 13:15:26.983–13:15:28.187 UTC a separate read-only verifier required the exact documented four-index set, six ledger columns, named enforced-engine FK/reference/CASCADE/NO ACTION metadata, three native tables/no other objects, empty ledger, one unchanged complete customer/users schema/zero operators, preserved Phase0 journal and correct Phase1 hash/timestamp. Server does not expose ENFORCED; no synthetic managed FK DML was performed. Source stayed clean/exact throughout DDL and verification. Original postcheck failure remains immutable evidence; this receipt supersedes its interpretation only, not its observed failure.
+
+P1-EV-025 — **Retention configuration observed, execution future.** Owner-private recovery instructions/reference helper retained alongside backup. Expiry `2027-03-26T12:53:28.303Z`; active one-shot exact-file Trash review scheduled `2027-03-26T12:54:28Z`, with owner/account/ACL/hash gates, no permanent deletion/folder/unrelated-file mutation. Native mode ask_user may require Michael action; metadata/accepted scheduling is not guaranteed automatic expiry or completed deletion. Read-back timing corrected against the service's original creation-time interval anchor. No recurring backup, ledger cleanup or retention SLA is claimed. Private receipts/destination IDs/customer data remain excluded from public Git/artifacts.
+
+The next live gate remains exact deployed backend-source identity and permitted real-account HTTPS OAuth/self-profile/logout replay, then separate exact operator approval and operating-security acceptance. No Phase2, role grant, key rotation, origin expansion or live restoration is authorized. This receipt-only documentation must pass its own final local/protected PR/main/artifact/checkpoint delivery; those future IDs are delivered externally after observation.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                                  |
@@ -171,7 +187,8 @@ This satisfies the newly scoped isolated incremental/recovery procedure, not liv
 | 2026-11-24 | 1.5.0 | Appended corrective PR/main/clone, protection, browser and cleanup evidence without erasing failures. |
 | 2026-11-24 | 1.6.0 | Appended approved-origin configuration resolution, actual 36-case validation and bounded startup/readiness evidence while preserving rollout and identity limitations. |
 | 2026-11-25 | 1.7.0 | Appended exact resumption/source/CI/config/probe evidence, current existing-account baseline, historical origin correction and secure migration/recovery review. |
+| 2026-11-26 | 1.8.0 | Appended approved actual-backup recovery and managed DDL/read-only receipts, preserved failures, TiDB automatic-index and retention limitations |
 
 ---
 
-**Document footer — MGECS-REBUILD-EVIDENCE v1.7.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: incremental migration/recovery proof, final source gates and exact managed approval.**
+**Document footer — MGECS-REBUILD-EVIDENCE v1.8.0 | Status: phase1-managed-ledger-verified-live-acceptance-pending | Next review: final docs delivery and real permitted-account HTTPS acceptance.**

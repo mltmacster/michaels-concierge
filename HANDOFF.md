@@ -1,11 +1,11 @@
 ---
 document_id: MGECS-REBUILD-HANDOFF
-version: 1.7.0
-status: phase1-source-verified-live-acceptance-pending
+version: 1.8.0
+status: phase1-managed-ledger-verified-live-acceptance-pending
 owner: Michael Thomas
 maintainer: Manus AI
 created: 2026-11-24
-updated: 2026-11-25
+updated: 2026-11-26
 append_protocol: append dated decisions and evidence; preserve superseded records
 ---
 
@@ -166,6 +166,38 @@ The owned engine stopped with bounded SIGTERM; port 3307 has no listener. All fi
 
 **Next gate now:** preserve a verified private backup of the existing managed account/journal, obtain approval for only the exact reviewed additive migration, then validate managed metadata/journal and permitted-account HTTPS flows. Do not repeat completed source development or call the whole Phase 1 accepted. The earlier numbered rehearsal step is satisfied only within this isolated scope; live backup/migration/identity and operating acceptance remain pending.
 
+## Managed backup and migration — 2026-11-26, v1.8.0
+
+### Source and authorization
+
+Execution stayed on clean `main` source `7ecf541c55e3ca374c1a0030ba8d5c360231ba8c`, managed checkpoint `7ecf541c`. Protected [PR #15](https://github.com/mltmacster/michaels-concierge/pull/15) and exact-main [CI 45716030756](https://github.com/mltmacster/michaels-concierge/actions/runs/45716030756) had passed quality, disposable identity database, container and artifact checks. These immutable IDs identify the source used for managed migration, not this future receipt-only documentation revision.
+
+Michael approved only a scoped private backup and the unchanged additive ledger migration at 00:35:34 UTC, conditional on prerequisites. At 12:46:14 UTC he selected his private Google Drive, Michael-only access and 120-day retention. That approval did not grant an operator, rotate keys, expand origins, authorize live restoration or activate Phase 2.
+
+### Verified private backup and isolated recovery
+
+At 12:53:28.303 UTC, a certificate-verified TiDB session captured a single fixed-TSO logical snapshot covering actual native users/journal schema and rows, in UTC. Both table row sets/native schema were repeated under the same snapshot without mismatch. One customer and one Phase 0 journal row were preserved; the ledger was absent. The 4,373-byte snapshot was retained in restricted owner-only Drive custody, and the downloaded bytes matched SHA-256. Credentials were excluded. Neither a source checkpoint nor unverified provider-native backup was substituted.
+
+At 12:58:14.946–12:58:16.744 UTC, the actual downloaded backup restored into a fresh restricted loopback MariaDB 10.11.14 target. Six unsafe targets were refused; actual account/server/owned datadir/empty objects were checked. Original captured CREATE statements executed unchanged and parameterized inserts preserved all two rows and normalized metadata. The owned engine stopped, data/logs were deleted and port 3307 closed. This proves isolated logical recoverability of the actual managed backup, not live TiDB/provider-native recovery or an RPO/RTO SLA.
+
+Owner-only recovery instructions/reference verifier are retained with the backup. Retention expires at `2027-03-26T12:53:28.303Z`; an active one-shot review/exact-file Trash instruction is scheduled at `2027-03-26T12:54:28Z`. Its native mode is `ask_user`, so owner action may be needed; hard automatic expiry/permanent deletion is not claimed. It cannot trash unrelated files or the parent folder. Private destination IDs/checksums/customer values remain outside public source.
+
+### Actual managed migration and read-only verification
+
+At 13:12:48.843–13:12:50.220 UTC, the actual Drizzle mysql2 migrator returned success for the unchanged four ordered pending DDL statements and the matching Phase 1 journal insert; commit returned success. Exact live native users/journal schema and complete saved rows were compared twice immediately before DDL. No user/role/session DML, fixture, key/origin/config/GC change, retry, reset or automatic restore was performed. The approved migration SHA-256 remains `eb3eab3601989e238f639a25dd96f3e0258d60078e2762b7760068f24e62d567`.
+
+The initial postcheck stopped at its overly narrow three-index expectation. TiDB retained an additional automatically created FK-support index named `userSessions_userId_users_id_fk` on `userId`; both explicitly approved indexes also exist. [TiDB v8.5 documents this automatic creation](https://docs.pingcap.com/tidb/v8.5/foreign-key/) when the FK is added before a supporting child index. No index was dropped and no DDL was replayed. A separate read-only verifier at 13:15:26.983–13:15:28.187 UTC required exactly the primary key, two approved named indexes and this exact documented automatic index, rather than ignoring arbitrary extra objects.
+
+Final observed managed state: exactly users/journal/ledger, unchanged complete existing customer values and users schema, one customer/zero operators, empty six-column ledger, hash primary key, named user FK with CASCADE/NO ACTION rules, and both correct journal hashes/timestamps. FK is enabled on the exact TiDB engine; this server does not expose ENFORCED metadata, and no synthetic managed insert/delete enforcement test was performed. The redundant supporting index is a documented engine outcome, not permission for unapproved optimization DDL.
+
+### Preserved failures and next agent
+
+The first snapshot helper stopped before row capture because its timestamp function was unavailable; the documented SHOW MASTER STATUS Position corrected capture without GC changes. A Google Workspace JSON-media download unexpectedly echoed customer fields into this owner's private task terminal instead of honoring its binary-output path. The raw saved output was restricted outside application source, credentials were not echoed and no GitHub/public artifact received it; a supported byte-preserving transfer corrected the download. Do not claim no private terminal echo ever occurred. The first migration-runner attempt stopped before connecting because it rejected the managed URL's exact certificate-verifying SSL option. The corrected actual guard passed two safe and refused ten unsafe synthetic inputs; verified TLS was not weakened. Both stopped receipts and the original index-postcheck failure remain preserved.
+
+Next: verify exact deployed backend-source identity and permitted real-account HTTPS OAuth, cookie attributes/return navigation, minimal self-profile/ownership, logout and rejected replay. Obtain a separate exact verified-account approval before any operator grant/session revocation. Complete operating security/MFA/proxy/CSP/monitoring/recovery decisions before request workflows. Do not repeat this migration, restore the backup into live data, rotate a key, start Phase 2 or call Phase 1 accepted from metadata/health alone.
+
+Source rollback does not undo managed DDL; an additive empty ledger can remain. Any future restore must reconcile post-backup demotions/deletions/profile decisions and invalidate restored sessions before reopening. Final receipt-only documentation must pass its own mandatory local/protected PR/main/artifact gates; its exact source/checkpoint receipt is delivered separately after observation.
+
 ## Change log
 
 | Date       | Version | Change                                                                                                                                            |
@@ -179,7 +211,8 @@ The owned engine stopped with bounded SIGTERM; port 3307 has no listener. All fi
 | 2026-11-24 | 1.5.0 | Appended corrective PR/main/clone, protection, browser and cleanup evidence without erasing failures. |
 | 2026-11-24 | 1.6.0 | Resolved approved-origin configuration with actual 36-case validation and bounded startup/readiness evidence; rollout, identity, migration and recovery gates remain pending. |
 | 2026-11-25 | 1.7.0 | Resumed Phase 1 from exact source/CI; corrected historical origin prose; recorded public probes, current one-account/no-ledger inventory and recovery-before-migration gates. |
+| 2026-11-26 | 1.8.0 | Appended approved private backup/actual isolated recovery, unchanged managed migration, TiDB automatic-index correction and live-acceptance next gates |
 
 ---
 
-**Document footer — MGECS-REBUILD-HANDOFF v1.7.0 | Status: phase1-source-verified-live-acceptance-pending | Next review: verified private managed backup, exact migration approval and permitted-account acceptance.**
+**Document footer — MGECS-REBUILD-HANDOFF v1.8.0 | Status: phase1-managed-ledger-verified-live-acceptance-pending | Next review: exact deployed-source and permitted-account HTTPS acceptance.**
